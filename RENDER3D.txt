@@ -12,7 +12,7 @@ End
 ClrDraw
 0->I
 1->T
-&@c&^2->S
+Ymax->S
 T*S->O
 
 
