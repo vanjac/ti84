@@ -35,3 +35,50 @@ Return
 
 .&r1 LOCATION
 .&r2 AMOUNT
+Lbl INSERT
+
+LEN->&r3
+While &r3>=&r1
+sub(CHARI&rad,&r3)
+{&X1T}->&r4
+sub(CHARI&rad,&r3+&r2)
+&r4->{&X1T}
+&r3--
+End
+
+
+If A>=&r1
+A+&r2->A
+End
+If B>=&r1?(B!=&-1)
+B+&r2->B
+End
+If C>=&r1?(C!=&-1)
+C+&r2->C
+End
+If D>=&r1?(D!=&-1)
+D+&r2->D
+End
+
+LEN+&r2->LEN
+
+Return
+
+
+
+.&r1 LOCATION
+.&r2 AMOUNT
+Lbl DELETE
+
+&r1+&r2->&r3
+While &r3<=LEN
+sub(CHARI&rad,&r3)
+{&X1T}->&r4
+sub(CHARI&rad,&r3-&r2)
+&r4->{&X1T}
+&r3++
+End
+
+LEN-&r2->LEN
+
+Return

@@ -1,0 +1,103 @@
+SNAKE2
+not protected
+
+.SNAKEG2
+
+ExprOff
+
+ClrDraw
+
+.COORDINATES, IN X,Y PAIRS: &L1
+
+.START POS
+For(I,0,7)
+32->{&L1+I}
+End
+For(I,8,768)
+127->{&L1+I}
+End
+
+
+.X,Y SPEED, LENGTH-1, POINTS
+0->N->Y->P+2->X
+
+.HIGH SCORE FILE
+GetCalc("&vSNAKEHS")->F
+!If F
+GetCalc("&vSNAKEHS",2)->F
+If F
+0->{F}&rad
+End
+End
+
+.RANDOM DOT
+Lbl DOT
+N+3->N
+rand^48*2->A
+rand^32*2->B
+
+Lbl LOOP
+If N<86
+Pause 256-(N/3)
+End
+
+If getKey(3)
+0->Y+2->X
+End
+If getKey(2)
+&-2->X+2->Y
+End
+If getKey(1)
+0->X+2->Y
+End
+If getKey(4)
+&-2->Y+2->X
+End
+
+
+.DRAW
+ClrDraw
+For(I,0,N)
+ref({I*2+&L1},{I*2+&L1+1},2,2)
+End
+.DOT
+ref(A,B,2,2)
+DispGraph
+
+.MOVE
+.TEMP
+conj(N*2+&L1-1,N*2+&L1+1,N*2)&rad
+{&L1}+X->{&L1}
+{&L1+1}+Y->{&L1+1}:
+
+.IF HEAD IS OFF THE SCREEN
+If {&L1}>95??({&L1+1}>63)
+Goto DIE
+End
+
+.IF HEAD ISNT ON A BLACK PIXEL
+!If pxl-Test({&L1},{&L1+1})
+Goto LOOP
+End
+
+.IF THE PIXEL IS A DOT
+If {&L1}=A?({&L1+1}=B)
+P++
+Goto DOT
+End
+
+
+Lbl DIE
+Output(3,0,P>DEC)
+
+If F
+Output(3,1,{F}&rad>DEC)
+Output(0,1,"HS:")
+
+If P>({F}&rad)
+P->{F}&rad
+Output(0,2,"NEW HIGH SCORE!")
+End
+
+End
+Pause 6000

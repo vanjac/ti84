@@ -1,0 +1,123 @@
+FIXEDPT
+not protected
+
+.FIXTEST
+
+det(4)->GDB1
+det(4)->GDB2
+STOINT(GDB1,298)
+PRNT(GDB1)
+NEG(GDB1)
+PRNT(GDB1)
+Pause 6000
+Return
+
+
+det(2)->&degTMPA
+det(2)->&degTMPB
+det(4)->GDB1TMP
+
+.&r1 PTR
+.&r2 VALUE 1
+.&r3 VALUE 2
+Lbl STO
+&r2->{&r1}&rad
+&r3->{&r1+2}&rad
+Return
+
+.&r1 PTR
+.&r2 VALUE
+Lbl STOINT
+&r2->{&r1}&rad
+0->{&r1+2}&rad
+Return
+
+.&r1 PTR
+.&r2 VALUE
+Lbl STOFIX
+&r2/256->{&r1}&rad
+&r2&rad*256->{&r1+2}&rad
+Return
+
+.&r1 PTR
+Lbl ZRO
+0->{&r1}&rad
+0->{&r1+2}&rad
+Return
+
+.&r1 PTR
+Lbl ONE
+1->{&r1}&rad
+0->{&r1+2}&rad
+Return
+
+.&r1 PTR
+Lbl PRNT
+Disp {&r1}&rad>DEC
+Disp " "
+Disp {&r1+2}&rad>DEC
+Disp &i
+Return
+
+.&r1 A PTR
+.&r2 B PTR
+.&r3 A+B PTR
+Lbl ADD
+{&r1+2}&rad->TMPA
+{&r1+2}&rad+{&r2+2}&rad->{&r3+2}&rad
+{&r1}&rad+{&r2}&rad->{&r3}&rad
+If {&r3+2}&rad<TMPA
+{&r3}&rad++
+End
+Return
+
+.&r1 PTR
+Lbl NEG
+&r1->TMPA
+not({&r1}&rad)&rad->{&r1}&rad
+not({&r1+2}&rad)&rad->{&r1+2}&rad
+INC(TMPA)
+Return
+
+.&r1 A PTR
+.&r2 B PTR
+.&r3 A-B PTR
+Lbl SUB
+CPY(&r2,GDB1TMP)
+NEG(GDB1TMP)
+ADD(&r1,GDB1TMP,&r3)
+Return
+
+.&r1 SRC PTR
+.&r2 DST PTR
+Lbl CPY
+{&r1}&rad->{&r2}&rad
+{&r1+2}&rad->{&r2+2}&rad
+Return
+
+.&r1 A->B PTR
+.&r2 B->A PTR
+Lbl SWP
+{&r1}&rad->TMPA
+{&r1+2}&rad->TMPB
+{&r2}&rad->{&r1}&rad
+{&r2+2}&rad->{&r1+2}&rad
+TMPA->{&r2}&rad
+TMPB->{&r2+2}&rad
+Return
+
+.&r1 PTR
+Lbl INC
+{&r1+2}&rad++
+If {&r1+2}&rad=0
+{&r1}&rad++
+End
+Return
+
+.&r1 PTR
+Lbl DEC
+{&r1+2}&rad--
+If {&r1+2}&rad=&-1
+{&r1}&rad--
+End
+Return

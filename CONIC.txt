@@ -1,0 +1,20 @@
+CONIC
+not protected
+
+Prompt A
+Prompt B
+Prompt C
+Prompt D
+Prompt E
+Prompt F
+Func
+Simul
+
+FnOff 
+FnOn 1,2
+
+"(&-(BX+E)+&squareroot((BX+E)&^2-4C(AX&^2+DX+F)))/(2C)"->Str1
+"(&-(BX+E)-&squareroot((BX+E)&^2-4C(AX&^2+DX+F)))/(2C)"->Str2
+String>Equ(Str1,&Y1)
+String>Equ(Str2,&Y2)
+DispGraph

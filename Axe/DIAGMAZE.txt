@@ -1,0 +1,48 @@
+DIAGMAZE
+not protected
+
+.MAZE2
+
+46->A
+32->B
+
+ClrDraw
+For(Y,0,16)
+For(X,0,24)
+If rand^2
+Line(X*4,Y*4,X+1*4,Y+1*4)
+Else
+Line(X+1*4,Y*4,X*4,Y+1*4)
+End
+End
+End
+
+Lbl LOOP
+If A=&-2:92->A:End
+If B=&-2:60->B:End
+
+A^94->A
+B^62->B
+Line(A,B-1,A,B+1)
+Line(A-1,B,A+1,B)
+If getKey(41)
+Return&rad
+End
+If getKey(18)
+A+2->A:B+2->B
+While getKey(0):End
+End
+If getKey(20)
+A+2->A:B-2->B
+While getKey(0):End
+End
+If getKey(34)
+A-2->A:B+2->B
+While getKey(0):End
+End
+If getKey(36)
+A-2->A:B-2->B
+While getKey(0):End
+End
+DispGraph
+Goto LOOP

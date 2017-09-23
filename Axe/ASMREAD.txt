@@ -1,0 +1,26 @@
+ASMREAD
+not protected
+
+.READ
+
+"prgm        "->Str1NAME
+
+
+.FILE NAME
+GetCalc("Str1")->N
+Return!If N
+conj(N,Str1NAME+1,8)
+
+.POINTER TO FILE
+GetCalc(Str1NAME)->F
+Return!If F
+
+For(I,0,{F-2}&rad)
+Disp &i
+Disp {F+I}>DEC
+!If I^8
+getKey&rad
+End
+End
+
+getKey&rad

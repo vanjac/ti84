@@ -1,25 +1,33 @@
 DRAW3D
 not protected
 
-For(X,0,36)
+FnOff 
+GridOff
+AxesOff
 ClrDraw
 prgmINIT3D
 
-10&deg*X->&theta
-prgmROTYMULT
+1->A
+1->N
+16->F
+60&deg->Y
+prgmPRSPMULT
 
-&-4->A:4->B:&-1->C:1->D
-4->E:4->F:&-1->G:1->H
-prgmMTXLINE
+0->X:Ymin->Y:Ymin-Yscl-.2->Z
+prgmTRANMULT
 
-4->A:&-4->B
-prgmMTXLINE
-
-&-4->E:&-4->F
-prgmMTXLINE
-
-&-4->A:4->B
-prgmMTXLINE
-
-Pause 
+For(T,Ymin,Ymax,Yscl)
+For(S,Xmin,Xmax,Xscl)
+&Y1->P
+S-Xscl->S:&Y1->Q:S+Xscl->S
+T-Yscl->T:&Y1->R:T+Yscl->T
+[A]*[[S,S-Xscl,S,0][P,Q,R,0][&-T,&-T,&-T+Yscl,0][1,1,1,1]]->[I]
+[I](4,1)->U
+[I](4,2)->V
+[I](4,3)->W
+If U and V
+Line([I](1,1)/U,[I](2,1)/U,[I](1,2)/V,[I](2,2)/V)
+If U and W
+Line([I](1,1)/U,[I](2,1)/U,[I](1,3)/W,[I](2,3)/W)
+End
 End

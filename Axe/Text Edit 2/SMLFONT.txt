@@ -11,19 +11,6 @@ det(2)->&degSCRNBYTE
 det(2)->&degCHARBYTE
 
 
-Full
-ClrDraw
-0->X
-For(I,J,J+191)
-CHARDRAW(I^96+32,X^24,X/24,&-1)
-X++
-End
-DispGraph
-Pause 24000
-Return
-
-
-
 .&r1 CHAR
 .&r2 X
 .&r3 Y

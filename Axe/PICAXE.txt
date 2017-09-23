@@ -1,0 +1,22 @@
+PICAXE
+not protected
+
+.PIC
+
+"prgm        "->Str1NAME
+
+
+.LENGTH OF A TOKEN
+log(&r1>255?2,1)->LEN
+
+
+.FILE NAME
+GetCalc("Str1")->N
+Return!If N
+conj(N,Str1NAME+1,8)
+
+.POINTER TO FILE
+GetCalc(Str1NAME)->F
+Return!If F
+Disp F
+Pause 4000

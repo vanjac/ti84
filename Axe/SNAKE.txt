@@ -3,121 +3,75 @@ not protected
 
 .SNAKEGME
 
+ExprOff
 
-Lbl SNAKE
-.COORDINATES, IN X,Y PAIRS
-Fill(&L1,768,127)
+.COORDINATES, IN X,Y PAIRS: &L1
 
-.LENGTH
-5->N
-
-.START POSITION
-For(I,0,N-1)
-48-I->{I*2+&L1}
-32->{I*2+1+&L1}
+.START POS
+For(I,0,9)
+32->{&L1+I}
 End
 
-.X,Y SPEED
-1->X
-0->Y
+
+.X,Y SPEED, LENGTH-1
+0->Y+1->X->N
 
 .RANDOM DOT
-sub(DOT)
-
-
-.FOREVER
-Lbl LOOP
-
-.KEYS
-getKeys
-If getKey(41)
-Return
-End
-If getKey(3)
-1->X
-0->Y
-End
-If getKey(2)
-&-1->X
-0->Y
-End
-If getKey(1)
-0->X
-1->Y
-End
-If getKey(4)
-0->X
-&-1->Y
-End
-
-.DRAW
-ClrDraw
-sub(DRAW)
-.DOT
-Pxl-On(A,B)
-DispGraph
-
-.FORWARD
-sub(MOVE)
-
-.IF HEAD IS OFF THE SCREEN...
-If {&L1}>>95??({&L1}<<0)??({&L1+1}>>63)??({&L1+1}<<0)
-sub(DIE)
-End
-
-
-.IF HEAD IS ON A BLACK PIXEL..
-If pxl-Test({&L1},{&L1+1})
-
-.IF THAT PIXEL WAS THE DOT...
-If {&L1}=A?({&L1+1}=B)
-.EAT THE DOT
-sub(DOT)
+Lbl DOT
 N+3->N
-Else
-.HEAD IS TOUCHING THE SNAKE
-sub(DIE)
-End
+rand^96->A
+rand^64->B
 
-End
-
-
-.AS LENGTH GETS LONGER, SPEED GETS FASTER
+Lbl LOOP
 If N<128
 Pause 128-N
 End
 
+DispGraphClrDraw
 
-Goto LOOP
-Return
-
-
-
-Lbl DRAW
-For(I,0,N-1)
-Pxl-On({I*2+&L1},{I*2+1+&L1})
+If getKey(3)
+0->Y+1->X
 End
-Return
+If getKey(2)
+&-1->X+1->Y
+End
+If getKey(1)
+0->X+1->Y
+End
+If getKey(4)
+&-1->Y+1->X
+End
 
 
-Lbl MOVE
+.DRAW
+For(I,0,N)
+Pxl-On({I*2+&L1},{I*2+&L1+1})
+End
+.DOT
+Pxl-On(A,B)
+
+.MOVE
 .TEMP
-conj(&L1,&L3,N*2)
-conj(&L3,&L1+2,N*2)
-{&L1+2}+X->{&L1}
-{&L1+3}+Y->{&L1+1}
-Return
+conj(N*2+&L1+5,N*2+&L1+7,N*2+6)&rad
+{&L1}+X->{&L1}
+{&L1+1}+Y->{&L1+1}:
 
+.IF HEAD IS OFF THE SCREEN
+If {&L1}>95??({&L1+1}>63)
+Goto DIE
+End
 
-Lbl DOT
-rand^96->A
-rand^64->B
-Return
+.IF HEAD ISNT ON A BLACK PIXEL
+!If pxl-Test({&L1},{&L1+1})
+Goto LOOP
+End
+
+.IF THE PIXEL IS A DOT
+If {&L1}=A?({&L1+1}=B)
+Goto DOT
+End
 
 
 Lbl DIE
-Text(0,0)
-DrawF N>DEC
-.DispGraph
+Disp N>DEC
 Pause 6000
-Return&rad

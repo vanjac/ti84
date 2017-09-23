@@ -1,0 +1,51 @@
+MALLOC
+not protected
+
+.MEMDEMO
+
+Goto MEMEND
+
+.FILENAME
+"&v        "->Str0MNAME
+.MALLOC RESULT
+det(2)->&degMPT
+
+
+.&r1 SIZE
+.RETURN MPT
+Lbl MALLOC
+
+.GENERATE FILE NAME
+77->{Str0MNAME+1}
+While 1
+For(I,2,8)
+rand^26+97->{Str0MNAME+I}
+End
+.IF FILE EXISTS TRY A NEW NAME
+End!If GetCalc(Str0MNAME)
+
+.CREATE FILE
+GetCalc(Str0MNAME,&r1+8)->MPT
+.ON ERROR, RETURN NULL
+Return!If MPT
+
+
+.STORE FILE NAME IN FILE
+conj(Str0MNAME+1,MPT,8)
+
+MPT+8->MPT
+
+Return
+
+
+
+.&r1 POINTER
+Lbl FREE
+.GET FILE NAME
+conj(&r1-8,Str0MNAME+1,8)
+.DELETE
+DelVar Str0MNAME
+Return
+
+
+Lbl MEMEND
