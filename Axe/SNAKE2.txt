@@ -37,8 +37,8 @@ rand^48*2->A
 rand^32*2->B
 
 Lbl LOOP
-If N<86
-Pause 256-(N/3)
+If P<64
+Pause 256-(P*3)
 End
 
 If getKey(3)

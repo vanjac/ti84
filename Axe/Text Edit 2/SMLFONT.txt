@@ -10,12 +10,18 @@ det(2)->&degPOS
 det(2)->&degSCRNBYTE
 det(2)->&degCHARBYTE
 
+Goto FTEND
 
 .&r1 CHAR
 .&r2 X
 .&r3 Y
 .&r4 INVERT? (0 IF FALSE, &-1 IF TRUE)
 Lbl CHARDRAW
+
+If &r1=10
+32->&r1
+End
+
 ReturnIf &r1<32??(&r1>=127)
 
 (&r2^2?1,16)->POS:&r2/2+(&r3*72)+&L6->SCRNBYTE
@@ -38,3 +44,5 @@ Return
 Lbl CLINEB
 {CHARBYTE} xor &r4 and &EF*POS or {SCRNBYTE}->{SCRNBYTE}
 CHARBYTE++:SCRNBYTE+12->SCRNBYTE:Return
+
+Lbl FTEND

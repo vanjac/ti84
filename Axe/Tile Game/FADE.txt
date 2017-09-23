@@ -5,6 +5,10 @@ not protected
 
 &deltaList(0)->GDB0FDE
 
+FADE()
+Pause 4000
+UNFADE()
+Return
 
 Lbl FADE
 Shade()->{GDB0FDE}

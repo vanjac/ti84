@@ -7,7 +7,7 @@ not protected
 
 
 .LENGTH OF A TOKEN
-log(&r1>255?2,1)->LEN
+.log(&r1>255?2,1)->LEN
 
 
 .FILE NAME
@@ -19,4 +19,4 @@ conj(N,Str1NAME+1,8)
 GetCalc(Str1NAME)->F
 Return!If F
 Disp F
-Pause 4000
+Pause 6000
