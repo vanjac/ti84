@@ -8,7 +8,7 @@ I'm using [my parse8xp fork](https://github.com/vanjac/parse8xp) to generate tex
 
 Some of the more interesting programs:
 
-- `Axe/Music/AXEMNOTE`: Music notation program
+- `Axe/Music/AXEMNOTE`: Music notation editor
 - `Axe/Life`: Some Game Of Life things. `AXELIFE` supports custom rule codes. There's also programs here for generating a maze and then solving it.
 - `Axe/BOXES`: Draw/edit boxes in 3D
 - `BASMANDL`: Mandelbrot set generator in Basic
