@@ -1,0 +1,41 @@
+DRAW3D
+not protected
+
+If 0
+Then
+"IN:"
+"U,V,W:PT1"
+"X,Y,Z:PT2"
+"O:SCREEN SIZE*PROJECT. PLANE DIST."
+
+"USES:G,H"
+End
+
+If V<0
+Then
+If Y<0
+Then
+Return
+Else
+&-V->V
+End
+End
+
+If Y<0
+&-Y->Y
+
+If V=0
+Then
+O->G
+Else
+O/V->G
+End
+
+If Y=0
+Then
+O->H
+Else
+O/Y->H
+End
+
+Line(U*G,W*G,X*H,Z*H)

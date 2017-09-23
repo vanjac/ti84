@@ -1,0 +1,9 @@
+INVLINE
+not protected
+
+"Y=AX+B"
+"OUT:Y=DX+E"
+
+1/A->D
+&-B/A->E
+Return

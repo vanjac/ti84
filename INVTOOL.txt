@@ -1,0 +1,50 @@
+INVTOOL
+not protected
+
+Lbl GO
+
+Goto LP
+
+Lbl LP
+Menu("  CHOOSE MODE   ","GENERIC",GN,"LINEAR",1,"QUIT",ST)
+
+Lbl GN
+Disp "G(X)=A*F(BX+H)+K"
+Prompt A
+Prompt B
+Prompt H
+Prompt K
+prgmINVGEN
+Disp "G&^-1(X)="
+Disp "A*F&^-1(BX+H)+K"
+Disp "PRESS ENTER..."
+Pause 
+Disp "A:",A
+Disp "B:",B
+Disp "PRESS ENTER..."
+Pause 
+Disp "H:",H
+Disp "K:",K
+Goto EN
+
+
+
+Lbl 1
+Disp "Y=AX+B"
+Prompt A
+Prompt B
+prgmINVLINE
+Disp "INVERSE"
+Disp "A:",D
+Disp "B:",E
+Goto EN
+
+
+
+Lbl EN
+Disp "PRESS ENTER..."
+Pause 
+Menu("     AGAIN?     ","NO",ST,"YES",LP)
+
+Lbl ST
+Return

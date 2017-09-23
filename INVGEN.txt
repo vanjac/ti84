@@ -1,0 +1,16 @@
+INVGEN
+not protected
+
+"IN:G(X)=A*F(BX-H)+K"
+"OUT:G&-1(X)=A*F&-1(BX-H)+K"
+"USES:&L6"
+
+1/B->&L6(1)
+1/A->&L6(2)
+&-K/A->&L6(3)
+&-H->&L6(4)
+
+&L6(1)->A
+&L6(2)->B
+&L6(3)->H
+&L6(4)->K

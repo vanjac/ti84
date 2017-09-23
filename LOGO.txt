@@ -13,8 +13,8 @@ ClrDraw
 
 Lbl LP
 I+1->I
-&L1(I)->J
-&L2(I)->K
+&listLOGOC(I)->J
+&listLOGOA(I)->K
 
 If J=1
 Goto 1

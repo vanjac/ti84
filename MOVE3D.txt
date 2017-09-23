@@ -1,36 +1,22 @@
 MOVE3D
 not protected
 
+If 0
+Then
 "IN:"
-"X,Y,Z:POINT"
+"&listX3D(I),&listY3D(I),&listZ3D(I):POINT"
 "A,B,C:TRANSLATE"
-"D,E,F:ROTATE"
+"F:ROTATE"
 "OUT:"
 "X,Y,Z"
 "USED:"
 "J,K,&theta,R"
-
-X+A->X
-Y+B->Y
-Z+C->Z
+End
 
 
-X->J
-Z->K
-E->&theta
-prgmROTATEPT
-J->X
-K->Z
-
-Y->J
-Z->K
-D->&theta
-prgmROTATEPT
-J->Y
-K->Z
-
-X->J
-Y->K
+&listX3D(I)+A->J
+&listY3D(I)+B->K
+&listZ3D(I)+C->Z
 F->&theta
 prgmROTATEPT
 J->X

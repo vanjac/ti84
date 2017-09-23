@@ -1,6 +1,8 @@
 ROTATEPT
 not protected
 
+If 0
+Then
 "IN:"
 "J,K:POINT"
 "&theta:ROTATION"
@@ -8,9 +10,33 @@ not protected
 "J,K:POINT"
 "USED:"
 "R,&theta"
+End
 
-&arctan(K/J)-&theta->&theta
+If &theta=0
+Return
+
+
+If K=0
+Then
+
+If J>=0
+Then
+90+&theta->&theta
+Else
+&-90+&theta->&theta
+End
+
+Else
+&arctan(J/K)+&theta->&theta
+End
+
 &squareroot(J&^2+K&^2)->R
 
-cos(&theta)*R->J
-sin(&theta)*R->K
+If K>=0
+Then
+sin(&theta)*R->J
+cos(&theta)*R->K
+Else
+&-sin(&theta)*R->J
+&-cos(&theta)*R->K
+End

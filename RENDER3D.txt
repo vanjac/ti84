@@ -1,0 +1,32 @@
+RENDER3D
+not protected
+
+If 0
+Then
+"IN:"
+"&listX3D,&listY3D,&listZ3D::PTS"
+"USES:I,T,S,O"
+End
+
+
+ClrDraw
+0->I
+1->T
+&@c&^2->S
+T*S->O
+
+
+Lbl LP
+I+1->I
+prgmMOVE3D
+X->U
+Y->V
+Z->W
+
+I+1->I
+prgmMOVE3D
+
+
+prgmDRAW3D
+If I<dim(&listX3D)
+Goto LP
