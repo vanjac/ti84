@@ -12,8 +12,12 @@ Lbl READ
 .((&Y1T=2??(&Y1T=3))?(&Y1T=3??&X1T))->&X2T
 
 
+.CUSTOMIZABLE RULE
+
 If &Y1T=8
-{GDB1RULE+3}&e(&X1T=1)->&X2T
+
+{GDB1RULE+3}&e&X1T->&X2T
+
 Else
 
 If &X1T
@@ -23,4 +27,7 @@ Else
 End
 
 End
+
+
+
 Return

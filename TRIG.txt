@@ -1,0 +1,35 @@
+TRIG
+not protected
+
+Prompt X
+
+sin(X)->A
+cos(X)->B
+tan(X)->C
+
+Disp "sin(X)="
+Disp A
+Disp "cos(X)="
+Disp B
+Disp "tan(X)="
+Disp C
+Disp "PRESS ENTER..."
+Pause 
+
+Disp "cot(X)="
+If C!=0:Then
+Disp 1/C
+Else
+Disp "       UNDEFINED":End
+
+Disp "sec(X)="
+If B!=0:Then
+Disp 1/B
+Else
+Disp "       UNDEFINED":End
+
+Disp "csc(X)="
+If A!=0:Then
+Disp 1/A
+Else
+Disp "       UNDEFINED":End

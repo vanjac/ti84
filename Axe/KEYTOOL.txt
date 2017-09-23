@@ -1,0 +1,24 @@
+KEYTOOL
+not protected
+
+.KEYSCAN
+
+ClrHome
+
+Lbl LOOP
+
+If getKey(49)
+getKeys
+End
+
+getKey->X
+If X!=0
+Disp X>DEC
+Disp &i
+End
+
+If getKey(41)
+Return
+End
+
+Goto LOOP

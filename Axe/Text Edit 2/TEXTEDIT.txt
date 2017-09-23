@@ -1,0 +1,27 @@
+TEXTEDIT
+not protected
+
+.TED
+
+
+0->A
+0->B
+0->C
+0->D
+
+det(2)->&degLEN
+
+
+
+
+CHARI(0)
+conj("TEXT",&X1T,5)
+INSERT(2,2)
+conj("  ",&X1T+2,2)
+Disp &X1T
+Pause 6000
+Return
+
+
+
+prgmBIGDATA

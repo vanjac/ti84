@@ -1,0 +1,37 @@
+BIGDATA
+not protected
+
+.TEXTDATA
+
+
+.GET THE INDEX OF A CHAR POSITION
+.STORE IT IN &X1T
+.&r1 (UINT) POSITION
+Lbl CHARI
+If &r1<768
+&L1+&r1->&X1T
+Return
+End
+
+If &r1<1536
+&L3+&r1-768->&X1T
+Return
+End
+
+If &r1<1792
+&L4+&r1-1536->&X1T
+Return
+End
+
+If &r1<1920
+&L5+&r1-1792->&X1T
+Return
+End
+
+&L5+1919->&X1T
+Return
+
+
+
+.&r1 LOCATION
+.&r2 AMOUNT

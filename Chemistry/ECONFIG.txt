@@ -1,0 +1,60 @@
+ECONFIG
+not protected
+
+"1s2s2p3s3p4s3d4p5s4d5p6s4f5d6p7s5f6d7p"->Str8
+{2,2,6,2,6,2,10,6,2,10,6,2,14,10,6,2,14,10,6}->&L6
+"H HeLiBeB C N O F NeNaMgAlSiP S ClArK CaScTiV CrMnFeCoNiCuZnGaGeAsSeBrKrRbSrY ZrNbMoTcRuRhPdAgCdInSnSbTeI XeCsBaLaCePrNdPmSmEuGdTbDyHoErTmYbLuHfTaW ReOsIrPtAuHgTlPbBiPoAtRnFrRaAcThPaU NpPuAmCmBkCfEsFmMdNoLrRfDbSgBhHsMtDsRgCnUuFlUuLvUuUu"->Str9
+Lbl ST
+
+Disp "Enter atomic"
+Disp "number:"
+Input X
+
+If X<=0 or int(X)!=X:Then
+Disp "Invalid"
+Disp ""
+Goto ST
+End
+
+If X>118:Then
+Disp "Unknown"
+Disp ""
+Goto ST
+End
+
+ClrHome
+
+Output(1,1,"Symbol: "+sub(Str9,X*2-1,2))
+Output(2,1,"Electron config:")
+
+
+" "->Str1
+1->I:0->A:0->B
+
+Lbl LP
+A+(&L6(I))->A
+If X<=A:Then
+X-B->&theta:prgmNUMTOSTR
+Str1+sub(Str8,I*2-1,2)+Str0+" "->Str1
+Goto EN
+Else
+A-B->&theta:prgmNUMTOSTR
+Str1+sub(Str8,I*2-1,2)+Str0+" "->Str1
+End
+
+If I<=16
+Output(3,I,"&dot")
+A->B:I+1->I
+Goto LP
+
+
+Lbl EN
+Output(3,1,Str1)
+
+0->A:0->B:0->I:0->X:0->&theta
+String>Equ("",&Y0)
+&statClrList &L1:&statClrList &L2:&statClrList &L6
+""->Str1:""->Str8:""->Str9:""->Str0:
+Output(8,6,"PRESS ENTER"
+Pause 
+ClrHome

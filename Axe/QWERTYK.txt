@@ -1,0 +1,131 @@
+QWERTYK
+not protected
+
+.QWERTY
+
+.STARTS AT KEY 9
+."&theta" IS IGNORED
+
+"&theta&theta     &thetazxcvbnm&thetaasdfghjkqwertyui&theta&theta&theta&theta&theta&theta&theta&theta&theta.&thetap&theta&thetaol"->Str1TBL1
+.ENTER
+10->{Str1TBL1}
+.SEMICOLON
+59->{Str1TBL1+51-9}
+"=+-*/^&theta&theta&theta369)>&theta&theta.258(<&theta&theta0147,&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta"->Str1TBL2
+.UNDERSCORE
+95->{Str1TBL2+17-9}
+"'&theta][&theta&theta&theta&theta?&theta^&theta}&theta&theta&theta&theta&theta&theta*{&theta&theta&theta&theta!&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta&theta"->Str1TBL3
+.QUOTE
+34->{Str1TBL3+10-9}
+.BACKSLASH
+92->{Str1TBL3+13-9}
+.POUND
+35->{Str1TBL3+18-9}
+.ACCENT
+96->{Str1TBL3+20-9}
+.PIPE
+124->{Str1TBL3+25-9}
+.AT
+64->{Str1TBL3+26-9}
+.PERCENT
+37->{Str1TBL3+27-9}
+.TILDE
+126->{Str1TBL3+33-9}
+.DOLLAR
+36->{Str1TBL3+35-9}
+.AMPERSAND
+38->{Str1TBL3+36-9}
+
+
+det(2)->&degSHIFT
+
+
+0->&X6T
+
+Goto QEND
+
+.RETURN &Y6T
+Lbl GETKEY
+.NO KEY
+!If getKey(0)
+0->&Y6T
+0->&X6T
+Return
+End
+
+.SHIFT
+getKey(48)??(getKey(49))->SHIFT
+
+.2nd
+If getKey(54)
+sub(KEY2&rad,0,SHIFT)
+Else
+sub(KEY1&rad,0,SHIFT)
+End
+
+.ignore &thetas
+If &Y6T=91
+0->&Y6T
+End
+
+If &X6T=&Y6T
+0->&Y6T
+Else
+&Y6T->&X6T
+End
+
+Return
+.GETKEY
+
+
+.&r1 0
+.&r2 SHIFT (BOOL)
+.RETURN &Y6T
+Lbl KEY1
+
+.COLON
+If &r2?getKey(51)
+58->&Y6T
+Return
+End
+
+
+For(&r1,9,56)
+.IGNORE SHIFT
+If &r1!=48?(&r1!=49)?(&r1!=54)?getKey(&r1)
+
+{Str1TBL1+&r1-9}->&Y6T
+
+.CAPS
+If &r2?(&Y6T>=97)?(&Y6T<=122)
+&Y6T-32->&Y6T
+End
+
+Return
+
+End
+End
+
+0->&Y6T
+Return
+.KEY1
+
+
+
+Lbl KEY2
+
+For(&r1,9,38)
+If getKey(&r1)
+If &r2
+{Str1TBL3+&r1-9}->&Y6T
+Else
+{Str1TBL2+&r1-9}->&Y6T
+End
+Return
+End
+End
+
+Return
+.KEY2
+
+Lbl QEND

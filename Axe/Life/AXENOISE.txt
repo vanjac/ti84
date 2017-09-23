@@ -4,8 +4,6 @@ not protected
 .NOISE
 
 Lbl NOISE
-.conj(rand)
-
 For(Y,16,48)
 For(X,24,72)
 If (rand^2)

@@ -6,13 +6,13 @@ not protected
 ExprOn
 
 .LIFE
-.[FF10300 000000000]->GDB1RULE
+[FF10300 000000000]->GDB1RULE
 
 .TRIANGLE
 .[4140FF4 000000000]->GDB1RULE
 
 .MAZE SOLVE
-[AA18FF4 000000000]->GDB1RULE
+.[AA18FF4 000000000]->GDB1RULE
 
 .MAZE
 .[FF107C0 000000000]->GDB1RULE
@@ -23,11 +23,23 @@ ExprOn
 .MOVE
 .[FF122C8 000000000]->GDB1RULE
 
+det(2)->&degRA
+det(2)->&degRB
+det(2)->&degRC
+det(2)->&degRD
+det(2)->&degRE
+det(2)->&degRF
+det(2)->&degRG
+det(2)->&degRH
 
 
-Lbl START
-
-Full
+.the rule
+{GDB1RULE}->R
+.each bit of the rule
+R&e0->RA:R&e1->RB
+R&e2->RC:R&e3->RD
+R&e4->RE:R&e5->RF
+R&e6->RG:R&e7->RH
 
 
 .CENTER
@@ -35,8 +47,11 @@ Full
 .SUM
 0->&Y1T
 
-
+ClrDraw
+ClrDraw&rad
 NOISE()
+
+Full
 Lbl LOOP
 
 If getKey(41)
@@ -44,54 +59,44 @@ Normal
 Return
 End
 
-STEP()
-
-Goto LOOP
-Normal
-Return
-
-Lbl STEP
-For(Y,0,63)
-For(X,0,95)
+For(Y,16,48)
+For(X,24,72)
 pxl-Test(X,Y)->&X1T
-
-{GDB1RULE}->R
 
 0->&Y1T
 
 .N
-If R&e0?(pxl-Test(X,Y-1))
+If RA?(pxl-Test(X,Y-1))
 &Y1T++
 End
 .NE
-If R&e1?(pxl-Test(X+1,Y-1))
+If RB?(pxl-Test(X+1,Y-1))
 &Y1T++
 End
 .E
-If R&e2?(pxl-Test(X+1,Y))
+If RC?(pxl-Test(X+1,Y))
 &Y1T++
 End
 .SE
-If R&e3?(pxl-Test(X+1,Y+1))
+If RD?(pxl-Test(X+1,Y+1))
 &Y1T++
 End
 .S
-If R&e4?(pxl-Test(X,Y+1))
+If RE?(pxl-Test(X,Y+1))
 &Y1T++
 End
 .SW
-If R&e5?(pxl-Test(X-1,Y+1))
+If RF?(pxl-Test(X-1,Y+1))
 &Y1T++
 End
 .W
-If R&e6?(pxl-Test(X-1,Y))
+If RG?(pxl-Test(X-1,Y))
 &Y1T++
 End
 .NW
-If R&e7?(pxl-Test(X-1,Y-1))
+If RH?(pxl-Test(X-1,Y-1))
 &Y1T++
 End
-
 
 
 READ()
@@ -105,16 +110,10 @@ End
 End
 
 
-conj(&L3)
+RecallPic 
 DispGraph
-Return
+Goto LOOP
 
 
-.Lbl READ
-.&X2T:RESULT
-.((&Y1T=2??(&Y1T=3))?(&Y1T=3??&X1T))->&X2T
-.Return
-
-
-prgmMAZE
+prgmAXENOISE
 prgmAXELRULE

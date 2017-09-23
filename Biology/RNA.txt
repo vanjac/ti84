@@ -1,0 +1,97 @@
+RNA
+not protected
+
+sub(Str1,1,1)->Str2:sub(Str1,2,1)->Str3:sub(Str1,3,1)->Str4:sub(Str1,1,2)->Str5:sub(Str1,2,2)->Str6
+sub(Str1,1,1)+sub(Str1,3,1)->Str7
+
+
+If Str2="G":Then
+
+If Str3="U":Then
+"Valine"->Str1:Goto EN
+End
+If Str3="C":Then
+"Alanine"->Str1:Goto EN
+End
+If Str3="G":Then
+"Glycine"->Str1:Goto EN
+End
+If Str6="AU" or Str6="AC":Then
+"Aspartic Acid"->Str1:Goto EN
+End
+If Str6="AA" or Str6="AG":Then
+"Glutamic Acid"->Str1:Goto EN
+End
+
+End
+
+
+If Str1="UUU" or Str1="UUC":Then
+"Phenylalanine"->Str1:Goto EN
+End
+
+If Str1="UUA" or Str1="UUG" or Str5="CU":Then
+"Leucine"->Str1:Goto EN
+End
+
+If Str5="UC" or Str1="AGC" or Str1="AGU":Then
+"Serine"->Str1:Goto EN
+End
+
+If Str1="UAU" or Str1="UAC":Then
+"Thyrosine"->Str1:Goto EN
+End
+
+If Str1="UAA" or Str1="UAG" or Str1="UGA":Then
+"STOP"->Str1:Goto EN
+End
+
+If Str1="UGU" or Str1="UGC":Then
+"Cysteine"->Str1:Goto EN
+End
+
+If Str1="UGG":Then
+"Tryptophan"->Str1:Goto EN
+End
+
+If Str5="CC":Then
+"Proline"->Str1:Goto EN
+End
+
+If Str5="CA":Then
+If Str4="U" or Str4="C":Then
+"Histidine"->Str1
+Else
+"Glutamine"->Str1
+End
+Goto EN
+End
+
+If Str5="CG" or Str1="AGA" or Str1="AGG":Then
+"Arginine"->Str1:Goto EN
+End
+
+If Str5="AU":Then
+If Str4="G":Then
+"Methionine"->Str1
+Else
+"Isoleucine"->Str1
+End
+Goto EN
+End
+
+If Str5="AC":Then
+"Threonine"->Str1:Goto EN
+End
+
+If Str5="AA":Then
+If Str4="U" or Str4="C":Then
+"Asparagine"->Str1
+Else
+"Lysine"->Str1
+End
+Goto EN
+End
+
+
+Lbl EN

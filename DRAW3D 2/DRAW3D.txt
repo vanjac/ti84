@@ -1,0 +1,25 @@
+DRAW3D
+not protected
+
+For(X,0,36)
+ClrDraw
+prgmINIT3D
+
+10&deg*X->&theta
+prgmROTYMULT
+
+&-4->A:4->B:&-1->C:1->D
+4->E:4->F:&-1->G:1->H
+prgmMTXLINE
+
+4->A:&-4->B
+prgmMTXLINE
+
+&-4->E:&-4->F
+prgmMTXLINE
+
+&-4->A:4->B
+prgmMTXLINE
+
+Pause 
+End

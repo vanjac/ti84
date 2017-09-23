@@ -1,0 +1,75 @@
+FASTLIFE
+not protected
+
+.LIFELIFE
+
+identity(0000 FFFE8002 8382 8382 8382 8002 803A 803A 803A 8002 BBBA BBBA BBBA 8002 FFFE)
+
+ExprOn
+
+ClrDraw&rad&rad
+NOISE()
+
+Full
+Full&rad
+Lbl LOOP
+
+If getKey(41)
+Normal
+Return
+End
+
+For(Y,16,48)
+For(X,24,72)
+0->&Y1T
+
+.N
+If pxl-Test(X,Y-1)
+&Y1T++
+End
+.NE
+If pxl-Test(X+1,Y-1)
+&Y1T++
+End
+.E
+If pxl-Test(X+1,Y)
+&Y1T++
+End
+.SE
+If pxl-Test(X+1,Y+1)
+&Y1T++
+End
+.S
+If pxl-Test(X,Y+1)
+&Y1T++
+End
+.SW
+If pxl-Test(X-1,Y+1)
+&Y1T++
+End
+.W
+If pxl-Test(X-1,Y)
+&Y1T++
+End
+.NW
+If pxl-Test(X-1,Y-1)
+&Y1T++
+End
+
+
+If (&Y1T=2??(&Y1T=3))?(&Y1T=3??pxl-Test(X,Y))
+Pxl-On(X,Y)&rad
+Else
+Pxl-Off(X,Y)&rad
+End
+
+End
+End
+
+
+RecallPic 
+DispGraph
+Goto LOOP
+
+
+prgmAXENOISE

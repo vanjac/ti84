@@ -1,0 +1,5 @@
+PRSPMULT
+not protected
+
+1/tan(Y/2)->G
+[A]*[[G/A,0,0,0][0,G,0,0][0,0,(F+N)/(N-F),(2FN)/(N-F)][0,0,&-1,0]]->[A]

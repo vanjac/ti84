@@ -7,7 +7,11 @@ not protected
 .NEXT:A,B
 
 Lbl NOISE
+ExprOn
+Full
+
 ClrDraw
+.DRAW BORDERS
 HLine(0)
 VLine(0)
 HLine(62)
@@ -20,7 +24,6 @@ If pxl-Test(X*2,Y*2)
 sub(MAZELN&rad)
 End
 
-getKeys
 If getKey(9)
 Pxl-Off(1,0)
 Pxl-Off(93,62)
@@ -28,6 +31,7 @@ Return
 End
 
 End
+
 Pause 6000
 Return
 
@@ -38,6 +42,7 @@ If getKey(41)
 Return&rad
 End
 
+.previous pos
 X->A
 Y->B
 

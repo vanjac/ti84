@@ -1,0 +1,52 @@
+CUBE
+not protected
+
+.CUBES
+
+[090A          0800 3E00 FF80  3E00 C980 F780  F780 F780 F780  3600]->Pic1CINV
+
+[090A          0800 1400 AA80  1400 8880 5500  A280 5500 A280  1400]->Pic1CMARK
+
+[0B0D          0400 1F00 7FC0  FFE0 FFE0 FFE0  FFE0 FFE0 FFE0  FFE0 7FC0 1F00  0400]->Pic1CMASK
+
+det(2)->&degGETBYTE
+log(
+
+
+
+ClrDraw&rad&rad
+sub(CUBE&rad,0,0,0,0)
+sub(CUBE&rad,0,0,1,1)
+sub(CUBE&rad,0,0,2,2)
+sub(CUBE&rad,0,0,3,3)
+sub(CUBE&rad,1,0,0,4)
+DispGraph&rad&rad
+Pause 8000
+Return
+
+
+det(2)->&degXTEMP
+det(2)->&degYTEMP
+
+.&r1 X
+.&r2 Y
+.&r3 Z
+.&r4 COLOR
+Lbl CUBE
+&r2*5-(&r1*5)+44->XTEMP
+&r1*3+(&r2*3)-(&r3*6)+27->YTEMP
+
+Tangent(XTEMP-1,YTEMP-1,Pic1CMASK)
+Tangent(XTEMP-1,YTEMP-1,Pic1CMASK)&rad
+
+If &r4&e6
+Tangent(XTEMP,YTEMP,Pic1CINV,&L6,1)
+End:If &r4&e7
+Tangent(XTEMP,YTEMP,Pic1CINV,&L3,1)
+End:If &r4&e5
+Tangent(XTEMP,YTEMP,Pic1CMARK,&L6,1)
+Tangent(XTEMP,YTEMP,Pic1CMARK,&L3,1)
+End
+
+Return
+

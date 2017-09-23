@@ -1,0 +1,80 @@
+BALL
+not protected
+
+.BALLGAME
+
+[3C7EFFFFFFFF7E3C]->Pic1BALL
+
+.BALL POS
+44.0->X:28.0->Y
+
+.BALL VEL
+0.0->A:0.0->B
+
+.TIME
+0->T
+
+Lbl LOOP
+
+ClrDraw
+Pt-On(X/1.0,Y/1.0,Pic1BALL)
+DRAW()
+DispGraph
+
+Pause 100
+
+If getKey(41)
+Return
+End
+
+If getKey(3)
+A+0.8->A
+End
+If getKey(2)
+A-0.8->A
+End
+If getKey(1)
+B+0.8->B
+End
+If getKey(4)
+B-1.0->B
+End
+
+X+A->X:Y+B->Y
+ClrDraw
+DRAW():COLL()
+If X<<0.0??(X>>88.0)
+X-A->X
+&-A->A
+End
+If Y<<0.0??(Y>>56.0)
+Y-B->Y
+&-B->B
+End
+If C
+X-A->X:Y-B->Y
+&-A->A:&-B->B
+End
+
+A**0.9->A:B**0.9->B
+B+0.6->B
+
+T+1->T
+Goto LOOP
+
+
+Lbl COLL
+.COLLISION?
+0->C
+For(U,X/1.0,X/1.0+7)
+For(V,Y/1.0,Y/1.0+7
+If pxl-Test(U,V):1->C:End
+End
+End
+Return
+
+
+Lbl DRAW
+Line(16,32,56,40)
+ref(56/2,40,24,16)
+Return

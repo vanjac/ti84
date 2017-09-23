@@ -1,0 +1,4 @@
+INIT3D
+not protected
+
+identity(4)->[A]:identity(4)->[I]:identity(4)->[J]
