@@ -1,4 +1,4 @@
-Programs I've written on my TI-84 calculator. This is a mix of TI-Basic, BBC Basic, and [Axe](http://www.ticalc.org/archives/files/fileinfo/456/45659.html).
+Programs I've written on my TI-84 Plus calculator. This is a mix of TI-Basic, BBC Basic, and [Axe](http://www.ticalc.org/archives/files/fileinfo/456/45659.html).
 
 These are based on old backups. Commits are titled with the backup date.
 
