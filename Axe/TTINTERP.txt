@@ -1,0 +1,70 @@
+TTINTERP
+not protected
+
+.TINYTALK
+
+" 0ACB&theta 5( &theta3) &theta U}VO"->Str0TEST
+
+ClrDraw
+sub(RUN&rad,Str0TEST)
+Pause 6000
+Return
+
+
+.&r1 CODE
+Lbl RUN
+.&r1 CHAR PTR
+.&r2/&r3/&r4 PAREN/BRACKET/CURLY DEPTH
+0->&r2->&r3->&r4
+.&r5 LINE START
+&r1->&r5
+.&r6 TEMP
+
+Lbl RUNLOOP
+
+If {&r1}=0
+&r1->&r6
+sub(RUNLINE&rad,&r5,&r6)
+Return
+ElseIf {&r1}=10??({&r1}={"&theta"})
+If &r2=0?(&r3=0)?(&r4=0)
+&r1->&r6
+sub(RUNLINE&rad,&r5,&r6)
+&r1+1->&r5
+End
+ElseIf {&r1}={"("}
+&r2++
+ElseIf {&r1}={")"}
+&r2--
+ElseIf {&r1}={"["}
+&r3++
+ElseIf {&r1}={"]"}
+&r3--
+ElseIf {&r1}={"{"}
+&r4++
+ElseIf {&r1}={"}"}
+If &r4=0
+&r1->&r6
+sub(RUNLINE&rad,&r5,&r6)
+Return
+Else
+&r4--
+End
+End
+
+&r1++
+Goto RUNLOOP
+.End Lbl RUN
+
+
+.&r1 START CHAR
+.&r2 NEWLINE CHAR
+Lbl RUNLINE
+[0000]->Str0TEMP
+For(X,&r1,&r2)
+{X}->{Str0TEMP}
+Disp Str0TEMP
+End
+
+Disp &i
+Return

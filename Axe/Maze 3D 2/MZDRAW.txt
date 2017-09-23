@@ -1,0 +1,75 @@
+MZDRAW
+not protected
+
+.MAZETEST
+
+Full
+Full&rad
+ExprOn
+
+For(I,0,50)
+ClrDraw
+For(J,0,95)
+0-(J*I/50)->{J+&L1}
+J-(J*I/50)->{J+&L1+96}
+151->{J*2+&L1+192}
+137->{J*2+&L1+193}
+End
+MZRENDER()
+DispGraph
+End
+Pause 6000
+
+Normal
+Return
+
+
+
+det(2)->&degMZRX
+det(2)->&degMZRYA
+det(2)->&degMZRYB
+det(2)->&degMZRTEX
+det(2)->&degMZRBAR
+det(2)->&degMZRBARY
+det(2)->&degMZRI
+
+det(17)->GDB0BAR
+
+
+Lbl MZRENDER
+
+For(MZRX,0,95)
+
+{MZRX+&L1}->MZRYA
+If MZRYA>=128
+MZRYA-256->MZRYA
+End
+MZRYA+32->MZRYA
+{MZRX+&L1+96}->MZRYB
+If MZRYB>=128
+MZRYB-256->MZRYB
+End
+MZRYB+32->MZRYB
+
+{MZRX*2+&L1+192}&rad->MZRTEX
+
+MZRYB-MZRYA->MZRBAR
+0->MZRBARY
+
+For(MZRI,0,16)
+MZRBARY/2/2/2/2+MZRYA->{MZRI+GDB0BAR}
+MZRBARY+MZRBAR->MZRBARY
+End
+
+For(MZRI,0,15)
+.Pxl-On(MZRX,{MZRI+GDB0BAR})
+If MZRTEX&e&eMZRI
+VLine(MZRX,{MZRI+GDB0BAR},{MZRI+GDB0BAR+1})
+Else
+WVLine(MZRX,{MZRI+GDB0BAR},{MZRI+GDB0BAR+1})
+End
+End
+
+End
+Return
+

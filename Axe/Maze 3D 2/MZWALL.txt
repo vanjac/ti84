@@ -1,0 +1,114 @@
+MZWALL
+not protected
+
+.MAZEROT
+
+0->A
+0->B
+20->C
+0->D
+
+Lbl LOOP
+If getKey(1)
+D+1->D
+End
+If getKey(2)
+C-1->C
+End
+If getKey(3)
+C+1->C
+End
+If getKey(4)
+D-1->D
+End
+If getKey(9)
+&statSelect(A,C->A)->C
+&statSelect(B,D->B)->D
+While getKey(9)
+End
+End
+If getKey(41)
+Return
+End
+
+A->E
+B->F
+C->G
+D->H
+MZCLIP(&degE,&degF,&degG,&degH,10,30)
+
+ClrDraw
+
+VLine(58)
+VLine(78)
+Line(48,32,79,63)
+Line(48,32,80,0)
+
+Circle(A+48,B+32,5)
+Circle(C+48,D+32,5)
+Line(E+48,F+32,G+48,H+32)
+
+DispGraph
+
+&theta+1->&theta
+Goto LOOP
+
+Return
+
+
+
+det(2)->&degMZSIN
+det(2)->&degMZCOS
+
+.&r1,&r2 X,Y
+.&r3 &theta
+.&r4,&r5 X,Y OUT
+Lbl MZROT
+sin(&r3)->MZSIN
+cos(&r3)->MZCOS
+
+&statSelect(&r1*MZCOS-(&r2*MZSIN)//128,&r1*MZSIN+(&r2*MZCOS)//128->{&r5}&rad)->{&r4}&rad
+Return
+
+det(2)->&degMZCODEA
+det(2)->&degMZCODEB
+
+.&r1,&r2,&r3,&r4 X1,Y1,X2,Y2 PTR
+.&r5,&r6 NEAR/FAR CLIP
+Lbl MZCLIP
+.COHEN-SUTHERLAND
+sub(MZPTCODE&rad,{&r1}&rad,{&r2}&rad,&r5,&r6,&degMZCODEA)
+sub(MZPTCODE&rad,{&r3}&rad,{&r4}&rad,&r5,&r6,&degMZCODEB)
+
+!If MZCODEA&plusMZCODEB
+Return
+End
+If MZCODEA&dotMZCODEB
+0->{&r1}&rad->{&r2}&rad->{&r3}&rad->{&r4}&rad
+Return
+End
+
+Return
+
+det(2)->&degMZCODE
+
+.LOCATION CODE
+.&r1,&r2 PT
+.&r3,&r4 NEAR,FAR
+.&r5 CODE OUT
+Lbl MZPTCODE
+0->MZCODE
+If &r2>>&r1?(&r2>=>=0)
+MZCODE+1->MZCODE
+End
+If &r2<<&-&r1?(&r2<<0)
+MZCODE+2->MZCODE
+End
+If &r1>>&r4
+MZCODE+4->MZCODE
+End
+If &r1<<&r3
+MZCODE+8->MZCODE
+End
+MZCODE->{&r5}&rad
+Return

@@ -3,25 +3,151 @@ not protected
 
 .TED
 
+prgmBIGDATA
+prgmSMLFONT
+prgmQWERTYK
 
-0->A
-0->B
-0->C
-0->D
+0->A .CURSOR
+&-1->B .SELECT
+&-1->C .COPY [
+&-1->D .COPY ]
 
 det(2)->&degLEN
-
-
-
+0->LEN
+det(2)->&degSCRLY
+0->SCRLY
 
 CHARI(0)
-conj("TEXT",&X1T,5)
-INSERT(2,2)
-conj("  ",&X1T+2,2)
-Disp &X1T
-Pause 6000
+32->{&X1T}
+
+Lbl LOOP
+ClrDraw
+DRAWTEXT()
+DispGraph
+
+If getKey(41)
+Return
+End
+If getKey(3)?(A<LEN)
+A++
+Pause 128
+End
+If getKey(2)?(A>0)
+A--
+Pause 128
+End
+If getKey(1)
+DOWN()
+Pause 128
+End
+
+If getKey(53)
+If getKey(49)??getKey(48)
+If A<LEN
+DELETE(A,1)
+Pause 200
+End
+Else
+If A>0
+DELETE(A-1,1)
+Pause 200
+End
+End
+End
+
+GETKEY()
+If &Y6T
+INSERT(A,1)
+CHARI(A-1)
+&Y6T->{&X1T}
+End
+
+
+Goto LOOP
+
+
+det(2)->&degCHAR
+
+det(2)->&degCRSROW:det(2)->&degNEWLNA:det(2)->&degSTARTA
+Lbl DOWN
+A->STARTA
+
+A->CHAR
+While CHAR>=>=0
+CHAR--
+CHARI(CHAR)
+EndIf {&X1T}=10
+
+A-CHAR^24->CRSROW
+&-1->NEWLNA
+A->CHAR
+While CHAR<LEN
+CHARI(CHAR)
+If {&X1T}=10
+CHAR->NEWLNA
+End
+CHAR++
+EndIf NEWLNA!=&-1
+
+If NEWLNA=&-1
+LEN->A
+Return
+Else
+CHAR--
+While CHAR<LEN
+CHAR++
+CHARI(CHAR)
+EndIf {&X1T}=10
+
+NEWLNA+CRSROW->A
+If A>CHAR
+CHAR->A
+End
+End
+
+If A-STARTA>24
+STARTA+24->A
+End
+
 Return
 
 
+Lbl DRAWTEXT
 
-prgmBIGDATA
+det(2)->&degXPOS
+det(2)->&degYPOS
+det(2)->&degCURSY
+0->XPOS
+&-SCRLY->YPOS
+0->CURSY
+
+For(CHAR,0,LEN)
+If CHAR=A
+YPOS->CURSY
+End
+
+CHARI(CHAR)
+
+If YPOS>=>=0?(YPOS<=<=11)
+CHARDRAW({&X1T},XPOS,YPOS,CHAR=A?&-1,0)
+End
+
+If {&X1T}=10
+0->XPOS:YPOS++
+Else
+XPOS++
+If XPOS>=24
+0->XPOS:YPOS++
+End
+End
+
+End
+
+If CURSY<<0
+SCRLY--
+End
+If CURSY>=>=10
+SCRLY++
+End
+
+Return

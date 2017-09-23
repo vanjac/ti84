@@ -1,0 +1,52 @@
+MZWALLB
+not protected
+
+.MAZEROTB
+
+MZINIT()
+For(&theta,0,256)
+MZROT(10,15,&theta,&degA,&degB)
+MZROT(&-14,9,&theta,&degC,&degD)
+MZROT(&-18,&-13,&theta,&degE,&degF)
+MZROT(11,&-12,&theta,&degG,&degH)
+
+ClrDraw
+Circle(A+48,B+32,5)
+Circle(C+48,D+32,5)
+Circle(E+48,F+32,5)
+Circle(G+48,H+32,5)
+DispGraph
+End
+
+Pause 6000
+Return
+
+
+
+det(2)->&degMZSIN
+det(2)->&degMZCOS
+det(2)->&degMZI
+
+Lbl MZINIT
+For(MZI,0,256)
+sin(MZI)->{MZI+&L4}
+End
+Return
+
+
+.&r1,&r2 X,Y
+.&r3 &theta
+.&r4,&r5 X,Y OUT
+Lbl MZROT
+{&r3^256+&L4}->MZSIN
+{&r3+192^256+&L4}->MZCOS
+If MZSIN>=128
+MZSIN-256->MZSIN
+End
+If MZCOS>=128
+MZCOS-256->MZCOS
+End
+
+&statSelect(&r1*MZCOS-(&r2*MZSIN)//128,&r1*MZSIN+(&r2*MZCOS)//128->{&r5}&rad)->{&r4}&rad
+Return
+

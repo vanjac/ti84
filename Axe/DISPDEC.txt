@@ -1,0 +1,14 @@
+DISPDEC
+not protected
+
+.DISP
+
+DISPDEC(5.7)
+Pause 6000
+Return
+
+.&r1:Dec
+Lbl DISPDEC
+Disp (&r1/(1.0))>DEC
+Disp (&r1^(1.0))>DEC
+Return

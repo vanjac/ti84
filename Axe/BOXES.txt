@@ -1,0 +1,412 @@
+BOXES
+not protected
+
+.BOX
+
+[0000221408142200]->Pic1CRS
+
+.DATA: &L1
+.GROUPS OF 6 BYTES: X1,Y1,Z1,X2,Y2,Z2
+.SIGNED INTS
+det(2)->&degNUMBOXES
+0->NUMBOXES
+
+.SELECTION:&L5
+.128 BYTE INDICES
+det(2)->&degNUMSLCT
+0->NUMSLCT
+
+
+.CURSOR
+det(2)->&degCRSX
+det(2)->&degCRSY
+det(2)->&degCRSZ
+0->CRSX
+0->CRSY
+0->CRSZ
+.MARK
+det(2)->&degMRKX
+det(2)->&degMRKY
+det(2)->&degMRKZ
+.MARK ENABLED?
+det(2)->&degMRKON
+0->MRKON
+
+.GRID SIZE
+det(2)->&degGRID
+8->GRID
+
+.SCROLL
+det(2)->&degSCRLX
+det(2)->&degSCRLY
+48->SCRLX
+32->SCRLY
+
+.ROTATE
+det(2)->&degROTZ
+0->ROTZ
+
+.FRAME COUNTER
+0->&theta
+
+Goto LOOP
+
+.CHECK IF SELECTION MATCHES BOX
+.&r1-&r3:POINT
+.&r4:BOX INDEX
+.&r5:RESULT (BOOL PTR)
+Lbl CHCKSLCT
+If &r1<<0
+&r1+256->&r1
+End
+If &r2<<0
+&r2+256->&r2
+End
+If &r3<<0
+&r3+256->&r3
+End
+
+&r4*6+&L1->&r4
+(({&r4}=&r1)??({&r4+3}=&r1)) ? (({&r4+1}=&r2)??({&r4+4}=&r2)) ? (({&r4+2}=&r3)??({&r4+5}=&r3))->{&r5}&rad
+Return
+
+
+Lbl LOOP
+&theta++
+
+.QUIT
+If getKey(41)
+Return
+End
+
+.MOVE CURSOR
+
+If getKey(2)
+CRSX+GRID->CRSX
+While getKey(0):End:End
+
+If getKey(3)
+CRSX-GRID->CRSX
+While getKey(0):End:End
+
+If getKey(1)
+CRSY+GRID->CRSY
+While getKey(0):End:End
+
+If getKey(4)
+CRSY-GRID->CRSY
+While getKey(0):End:End
+
+If getKey(56)
+CRSZ+GRID->CRSZ
+While getKey(0):End:End
+
+If getKey(32)
+CRSZ-GRID->CRSZ
+While getKey(0):End:End
+
+.GRID SIZE
+
+If getKey(55)
+GRID*2->GRID
+While getKey(0):End:End
+
+If getKey(40)?(GRID>1)
+GRID/2->GRID
+While getKey(0):End:End
+
+.ROUND TO GRID
+
+If getKey(38)
+CRSX/GRID*GRID->CRSX
+End
+
+If getKey(30)
+CRSY/GRID*GRID->CRSY
+End
+
+If getKey(22)
+CRSZ/GRID*GRID->CRSZ
+End
+
+.SET MARK
+
+If getKey(54)
+1->MRKON
+CRSX->MRKX
+CRSY->MRKY
+CRSZ->MRKZ
+End
+
+.CLEAR MARK
+
+If getKey(48)
+0->MRKON
+End
+
+.SCROLL
+
+If getKey(19)
+SCRLX--
+End
+
+If getKey(35)
+SCRLX++
+End
+
+If getKey(26)
+SCRLY--
+End
+
+If getKey(28)
+SCRLY++
+End
+
+.ROTATE
+
+If getKey(20)
+ROTZ++
+End
+
+If getKey(36)
+ROTZ--
+End
+
+.RESET VIEW
+If getKey(33)
+48->SCRLX
+32->SCRLY
+0->ROTZ
+End
+
+.TO ORIGIN
+If getKey(17)
+0->CRSX->CRSY->CRSZ
+End
+
+.MAKE BOX
+If getKey(9)?MRKON
+CRSX->{NUMBOXES*6+&L1}
+CRSY->{NUMBOXES*6+&L1+1}
+CRSZ->{NUMBOXES*6+&L1+2}
+MRKX->{NUMBOXES*6+&L1+3}
+MRKY->{NUMBOXES*6+&L1+4}
+MRKZ->{NUMBOXES*6+&L1+5}
+0->MRKON
+NUMBOXES++
+While getKey(0):End:End
+
+.SELECT
+
+If getKey(14)?(NUMBOXES!=0)
+0->Y
+
+For(X,0,NUMBOXES-1)
+CHCKSLCT(CRSX,CRSY,CRSZ,X,&degY)
+If Y
+X->{&L5+NUMSLCT}
+NUMSLCT++
+End
+EndIf Y
+
+While getKey(0):End:End
+
+.CYCLE SELECT
+If getKey(23)?(NUMSLCT!=0)?(NUMBOXES-1!={&L5+NUMSLCT-1})
+0->Y
+
+For(X,{&L5+NUMSLCT-1}+1,NUMBOXES-1)
+CHCKSLCT(CRSX,CRSY,CRSZ,X,&degY)
+If Y
+X->{&L5+NUMSLCT-1)
+End
+EndIf Y
+
+While getKey(0):End:End
+
+.CLEAR SELECT
+If getKey(15)
+0->NUMSLCT
+End
+
+.SELECT ALL
+If getKey(31)?(NUMBOXES!=0)
+NUMBOXES->NUMSLCT
+For(X,0,NUMBOXES-1)
+X->{&L5+X}
+End
+While getKey(0):End:End
+
+.DUPLICATE
+If getKey(50)?(NUMSLCT!=0)
+For(X,0,NUMSLCT-1)
+{&L5+X}*6+&L1->Y
+NUMBOXES*6+&L1->Z
+conj(Y,Z,6)
+NUMBOXES++
+End
+While getKey(0):End:End
+
+.SET ORIGIN
+If getKey(25)?(NUMBOXES!=0)
+For(X,0,NUMBOXES-1)
+X*6+&L1->Y
+{Y}-CRSX->{Y}
+{Y+1}-CRSY->{Y+1}
+{Y+2}-CRSZ->{Y+2}
+{Y+3}-CRSX->{Y+3}
+{Y+4}-CRSY->{Y+4}
+{Y+5}-CRSZ->{Y+5}
+End
+While getKey(0):End:End
+
+.TRANSLATE
+If getKey(52)?(NUMSLCT!=0)?MRKON
+For(X,0,NUMSLCT-1)
+{&L5+X}*6+&L1->Y
+{Y}+CRSX-MRKX->{Y}
+{Y+1}+CRSY-MRKY->{Y+1}
+{Y+2}+CRSZ-MRKZ->{Y+2}
+{Y+3}+CRSX-MRKX->{Y+3}
+{Y+4}+CRSY-MRKY->{Y+4}
+{Y+5}+CRSZ-MRKZ->{Y+5}
+End
+0->MRKON
+End
+
+.TRANSLATE VERTEX
+If getKey(53)?(NUMSLCT!=0)
+For(X,0,NUMSLCT-1)
+{&L5+X}*6+&L1->Y
+If {Y}=MRKX
+CRSX->{Y}
+End
+If {Y+1}=MRKY
+CRSY->{Y+1}
+End
+If {Y+2}=MRKZ
+CRSZ->{Y+2}
+End
+If {Y+3}=MRKX
+CRSX->{Y+3}
+End
+If {Y+4}=MRKY
+CRSY->{Y+4}
+End
+If {Y+5}=MRKZ
+CRSZ->{Y+5}
+End
+End
+0->MRKON
+While getKey(0):End:End
+
+DispGraphClrDraw
+
+.STATUS
+If getKey(39)
+Text(0,0)
+DrawF "C:"
+TEXTSGN(CRSX)
+TEXTSGN(CRSY)
+TEXTSGN(CRSZ)
+DrawF "B:"
+TEXTSGN(NUMBOXES)
+DrawF "S:"
+TEXTSGN(NUMSLCT)
+End
+
+Goto DRAW
+
+.DRAW A SIGNED INT
+.&r1 INT
+Lbl TEXTSGN
+If &r1<<0
+DrawF "&-"
+DrawF &-&r1>DEC
+Else
+DrawF &r1>DEC
+End
+Return
+
+.USES A-P,X,Y
+Lbl DRAW
+If NUMBOXES!=0
+
+If NUMSLCT!=0?(&theta^2)
+For(X,0,NUMSLCT-1)
+{&L5+X}*6+&L1->Y
+BOX({Y},{Y+1},{Y+2},{Y+3},{Y+4},{Y+5})
+End
+Else
+&L1->Y
+For(NUMBOXES)
+BOX({Y},{Y+1},{Y+2},{Y+3},{Y+4},{Y+5})
+Y+6->Y
+End
+End
+
+End
+
+POINT(CRSX,CRSY,CRSZ,&degA,&degB)
+Pt-On(A-4,B-4,Pic1CRS)
+
+If MRKON
+BOX(CRSX,CRSY,CRSZ,MRKX,MRKY,MRKZ)
+End
+
+Goto LOOP
+
+
+.X1,Y1,Z1,X2,Y2,Z2
+.USES A-P
+Lbl BOX
+sub(POINT&rad,&r1,&r2,&r3,&degA,&degB)
+sub(POINT&rad,&r4,&r2,&r3,&degC,&degD)
+sub(POINT&rad,&r1,&r5,&r3,&degE,&degF)
+sub(POINT&rad,&r4,&r5,&r3,&degG,&degH)
+sub(POINT&rad,&r1,&r2,&r6,&degI,&degJ)
+sub(POINT&rad,&r4,&r2,&r6,&degK,&degL)
+sub(POINT&rad,&r1,&r5,&r6,&degM,&degN)
+sub(POINT&rad,&r4,&r5,&r6,&degO,&degP)
+Line(A,B,C,D)
+Line(C,D,G,H)
+Line(G,H,E,F)
+Line(E,F,A,B)
+Line(I,J,K,L)
+Line(K,L,O,P)
+Line(O,P,M,N)
+Line(M,N,I,J)
+Line(A,B,I,J)
+Line(C,D,K,L)
+Line(G,H,O,P)
+Line(E,F,M,N)
+Return
+
+
+.THE 2D SCREEN POSITION OF A 3D POINT
+.&r1 X(INT)
+.&r2 Y
+.&r3 Z
+.&r4 X RET(INT16 PTR)
+.&r5 Y RET(INT16 PTR)
+.USES U,V,W
+Lbl POINT
+.FIX 1 BYTE MASK
+If &r1>=>=128
+&r1-256->&r1
+End
+If &r2>=>=128
+&r2-256->&r2
+End
+If &r3>=>=128
+&r3-256->&r3
+End
+
+cos(ROTZ)->U
+sin(ROTZ)->V
+&statSelect(&r1*U-(&r2*V)//127,&r2*U+(&r1*V)//127->&r2)->&r1
+
+&r2-&r1*222//256+SCRLX->{&r4}&rad
+&r1+&r2//2-&r3+SCRLY->{&r5}&rad
+Return
+

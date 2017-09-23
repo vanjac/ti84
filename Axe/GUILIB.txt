@@ -1,0 +1,35 @@
+GUILIB
+not protected
+
+.GUI
+
+Lbl TEST
+GUINEW(10,10,30,30,&degX)
+ClrDraw
+GUIDRAW(X)
+DispGraph
+Pause 6000
+Return
+
+
+det(2)->&degGNEW
+
+.&r1:X START
+.&r2:Y START
+.&r3:WIDTH
+.&r4:HEIGHT
+.&r5:RET PTR
+Lbl GUINEW
+det(16)->GNEW
+&r1->{GNEW}
+&r2->{GNEW+1}
+&r3->{GNEW+2}
+&r4->{GNEW+3}
+GNEW->{&r5}
+Return
+
+
+.&r1:CONTROL PTR
+Lbl GUIDRAW
+rref({&r1},{&r1+1},{&r1+2},{&r1+3})
+Return

@@ -1,0 +1,143 @@
+WALL3D
+not protected
+
+.WALLTEST
+AsmComp(REALMATH)
+
+
+.TEST CODE
+
+
+WALLINIT()
+
+det(19)->GDB1
+det(19)->GDB2
+
+32->fPart(GDB0WALT}
+64->fPart(GDB0WDIST}
+10->fPart(GDB1}
+96->fPart(GDB1+9}
+20->fPart(GDB2}
+96->fPart(GDB2+9}
+
+
+WALLLINE(GDB1,GDB2,0,0)
+
+ClrDraw
+...
+WALLCLR()
+For(I,0,95)
+I->{I*4+&L1}
+End
+WALLDRAW()
+...
+DispGraph
+Pause 6000
+WALLQUIT()
+
+
+
+.LIBRARY
+Goto WALLEND
+
+.COUNTER
+det(2)->&degWALLI
+.ARGS
+det(2)->&degWALLA
+det(2)->&degWALLB
+det(2)->&degWALLC
+det(2)->&degWALLD
+.RESULT BOOL
+det(2)->&degWALLRES
+
+det(9)->GDB0WALT
+det(9)->GDB0WDIST
+
+
+Lbl WALLINIT
+
+Return
+
+
+Lbl WALLQUIT
+
+Return
+
+
+Lbl WALLERR
+Disp &r1
+Pause 6000
+WALLQUIT()
+Return&rad
+
+
+Lbl WALLCLR
+Fill(&L1,384,0)
+Return
+
+
+Lbl WALLPROJ
+det(2)->&degWALLZT
+
+solve(&transpose/,GDB0WDIST,&r2)->WALLZT
+conj(solve(solve(&transpose*,WALLZT,&r1)),&r3,9)
+conj(solve(solve(&transpose*,WALLZT,GDB0WALT)),&r4,9)
+Return
+
+
+Lbl WALLCLIP
+1->{&r5}&rad
+Return
+
+
+Lbl WALLTRANA
+
+Return
+
+
+Lbl WALLTRANB
+
+Return
+
+
+Lbl WALLLINE
+&r1->WALLA
+&r2->WALLB
+&r3->WALLC
+&r4->WALLD
+WALLCLIP(WALLA,WALLA+9,WALLB,WALLB+9,&degWALLRES)
+Return!If WALLRES
+
+WALLPROJ(WALLA,WALLA+9,WALLA,WALLA+9)
+WALLPROJ(WALLB,WALLB+9,WALLB,WALLB+9)
+
+ReturnIf fPart(solve(solve(&transpose>=,WALLA,WALLB))}
+
+.DRAW THE LINE
+...
+Disp fPart(WALLA}>DEC
+Disp &i
+Disp fPart(WALLA+9}>DEC
+Disp &i
+Disp fPart(WALLB}>DEC
+Disp &i
+Disp fPart(WALLB+9}>DEC
+...
+
+Line(fPart(WALLA},fPart(WALLA+9},fPart(WALLB},fPart(WALLB+9})
+
+Return
+
+
+Lbl WALLDRAW
+det(2)->&degWALLBAR
+For(WALLI,0,95)
+{WALLI*4+&L1}->WALLBAR
+VLine(WALLI,32-WALLBAR,32+WALLBAR)
+End
+
+solve()&rad
+Return
+
+
+Lbl WALLEND

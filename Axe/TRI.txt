@@ -1,0 +1,78 @@
+TRI
+not protected
+
+.TRID
+
+0->N
+Lbl LOOP
+
+ClrDraw
+
+rand^256->N
+
+...
+If I=0
+166->N
+ElseIf I=1
+118->N
+ElseIf I=2
+180->N
+ElseIf I=3
+120->N
+ElseIf I=4
+225->N
+ElseIf I=5
+210->N
+ElseIf I=6
+149->N
+ElseIf I=7
+154->N
+ElseIf I=8
+145->N
+ElseIf I=9
+106->N
+ElseIf I=10
+135->N
+End
+...
+
+If getKey(41)
+Return
+End
+
+Pxl-On(48,0)
+
+For(Y,1,63)
+rand^127->N
+0->M
+For(X,0,95)
+
+If X=0
+pxl-Test(95,Y-1)->A
+Else
+pxl-Test(X-1,Y-1)->A
+End
+pxl-Test(X,Y-1)->B
+If X=95
+pxl-Test(0,Y-1)->C
+Else
+pxl-Test(X+1,Y-1)->C
+End
+If N&e(A*2+B*2+C)
+Pxl-On(X,Y)
+M++
+End
+
+End
+
+If M=0
+Y--
+End
+
+End
+
+DispGraph
+Text(1,1)
+DrawF N>DEC
+
+Goto LOOP

@@ -1,0 +1,46 @@
+AXEMENU
+not protected
+
+.MENULIB
+
+"ABC"->Str11
+"def"->Str12
+"GHI"->Str13
+&deltaList(Str11&rad,Str12&rad,Str13&rad)->GDB1S
+MENU("TEST",GDB1S,3)
+Return
+
+
+
+&deltaList(0)->GDB1TXTY
+
+.&r1:TITLE
+.&r2:STRING LIST
+.&r3:NUM ITEMS
+.&r4:RET VAR PTR
+
+Lbl MENU
+MENUDRW()
+Pause 6000
+Return
+
+Lbl MENUDRW
+ClrHome
+.Y
+0->{GDB1TXTY}
+Text(0,{GDB1TXTY})
+
+Fix3
+DrawF &r1
+Fix2
+
+12->{GDB1TXTY}
+Text(0,{GDB1TXTY})
+
+For(&r6,0,&r3-1)
+DrawF {&r6*2+&r2}&rad
+{GDB1TXTY}+12->{GDB1TXTY}
+Text(0,{GDB1TXTY})
+End
+
+Return
