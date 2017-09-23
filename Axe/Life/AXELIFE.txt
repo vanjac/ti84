@@ -1,0 +1,120 @@
+AXELIFE
+not protected
+
+.GOLIFE
+
+ExprOn
+
+.LIFE
+.[FF10300 000000000]->GDB1RULE
+
+.TRIANGLE
+.[4140FF4 000000000]->GDB1RULE
+
+.MAZE SOLVE
+.[AA18FF4 000000000]->GDB1RULE
+
+.MAZE
+[FF107C0 000000000]->GDB1RULE
+
+.CITIES
+.[FF0F3C8 000000000]->GDB1RULE
+
+.MOVE
+.[FF122C8 000000000]->GDB1RULE
+
+
+
+Lbl START
+
+Full
+
+
+.CENTER
+0->&X1T
+.SUM
+0->&Y1T
+
+
+NOISE()
+Lbl LOOP
+
+If getKey(41)
+Normal
+Return
+End
+
+STEP()
+
+Goto LOOP
+Normal
+Return
+
+Lbl STEP
+For(Y,0,63)
+For(X,0,95)
+pxl-Test(X,Y)->&X1T
+
+{GDB1RULE}->R
+
+0->&Y1T
+
+.N
+If R&e0?(pxl-Test(X,Y-1))
+&Y1T++
+End
+.NE
+If R&e1?(pxl-Test(X+1,Y-1))
+&Y1T++
+End
+.E
+If R&e2?(pxl-Test(X+1,Y))
+&Y1T++
+End
+.SE
+If R&e3?(pxl-Test(X+1,Y+1))
+&Y1T++
+End
+.S
+If R&e4?(pxl-Test(X,Y+1))
+&Y1T++
+End
+.SW
+If R&e5?(pxl-Test(X-1,Y+1))
+&Y1T++
+End
+.W
+If R&e6?(pxl-Test(X-1,Y))
+&Y1T++
+End
+.NW
+If R&e7?(pxl-Test(X-1,Y-1))
+&Y1T++
+End
+
+
+
+READ()
+If &X2T
+Pxl-On(X,Y)&rad
+Else
+Pxl-Off(X,Y)&rad
+End
+
+End
+End
+
+
+conj(&L3)
+DispGraph
+Return
+
+
+.Lbl READ
+.&X2T:RESULT
+.((&Y1T=2??(&Y1T=3))?(&Y1T=3??&X1T))->&X2T
+.Return
+
+
+prgmAXELDRAW
+prgmAXELRULE

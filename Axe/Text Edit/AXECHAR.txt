@@ -1,0 +1,20 @@
+AXECHAR
+not protected
+
+.CHARLIB
+
+"           WRMH  ?&thetaVQLG  :ZUPKFC  YTOJEB  XSNIDA"->Str1C1
+"           wrmh  ?&thetavqlg  :zupkfc  ytojeb  xsnida"->Str1C2
+
+
+.&r1:KEY
+.RET:&X1T
+Lbl KEY1
+
+If (&r1>=10?&r1<=47)
+{Str1C1+&r1}->&X1T
+Return
+End
+
+0->&X1T
+Return

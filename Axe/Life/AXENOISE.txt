@@ -1,0 +1,20 @@
+AXENOISE
+not protected
+
+.NOISE
+
+Lbl NOISE
+.conj(rand)
+
+For(Y,16,48)
+For(X,24,72)
+If (rand^2)
+Pxl-On(X,Y)
+Else
+Pxl-Off(X,Y)
+End
+End
+End
+
+DispGraph
+Return

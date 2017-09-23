@@ -1,0 +1,103 @@
+AXETEXT
+not protected
+
+.TEXTEDIT
+
+
+Lbl START
+
+.TEXT DATA STORED IN &L1
+.&L3:TEMP
+
+
+.LENGTH
+2->A
+.SELECTED
+0->B
+
+conj("  ",&L1,A)
+
+
+DRAW()
+
+
+Lbl LOOP
+getKey->&X6T
+getKeys
+
+If getKey(41)
+Return
+End
+If &X6T=3
+B+1->B
+If B>(A-1)
+A-1->B
+End
+DRAW()
+WAIT()
+End
+If &X6T=2
+B-1->B
+If B<<0
+0->B
+End
+DRAW()
+WAIT()
+End
+
+If &X6T=56
+conj(&L1+B+2,&L3,A-B-2)
+conj(&L3,&L1+B+1,A-B-2)
+A-1->A
+B-1->B
+DRAW()
+WAIT()
+End
+
+
+KEY1(&X6T)
+If &X1T!=0
+conj(&L1+B,&L3,A-B)
+conj(&L3,&L1+B+1,A-B)
+&X1T->{&L1+B}
+A+1->A
+B+1->B
+DRAW()
+WAIT()
+End
+
+Goto LOOP
+
+Return
+
+
+Lbl DRAW
+ClrHome
+Fix0
+Text(0,0)
+For(I,0,A-1)
+If I=B
+Fix3
+Else
+Fix2
+End
+
+DrawF {&L1+I}>FRAC
+End
+
+Fix0
+Fix2
+Fix4
+Fix6
+Return
+
+
+Lbl WAIT
+While getKey(0)
+End
+Return
+
+
+
+
+prgmAXECHAR

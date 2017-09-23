@@ -1,0 +1,109 @@
+MUSICS
+not protected
+
+Lbl GO
+
+1->X
+0->A
+
+ClrDraw
+Horizontal 4
+Horizontal 2
+Horizontal 0
+Horizontal &-2
+Horizontal &-4
+
+Goto MM
+
+
+Lbl MM
+X+A->X
+Menu("SELECT AN OBJECT","QUIT",QT,"WHOLE",N1,"HALF",N2,"QUARTER",N3,"8TH",N4,"16TH",N5)
+
+Lbl QT
+Stop
+
+
+Lbl N0
+0->N
+Goto PM
+
+Lbl N1
+1->N
+Goto PM
+
+Lbl N2
+2->N
+Goto PM
+
+Lbl N3
+3->N
+Goto PM
+
+Lbl N4
+4->N
+Goto PM
+
+Lbl N5
+5->N
+Goto PM
+
+
+Lbl PM
+Disp "ENTER PITCH:"
+Prompt P
+Goto DR
+
+
+Lbl EM
+Goto MM
+
+
+Lbl DR
+If N>=0 and &ti84plusremainder(abs(P),2)=0
+Then
+Line(X-1.5,P,X+1.5,P)
+End
+
+
+If N>=2
+Then
+If P>=0
+Then
+Line(X-0.4,P,X-0.4,P-4)
+Else
+Line(X+0.4,P,X+0.4,P+4)
+End
+End
+
+
+If N=1
+Then
+Circle(X,P,1)
+3->A
+End
+
+If N>=2
+Then
+Circle(X,P,0.8)
+3->A
+End
+
+If N>=3
+Then
+Circle(X,P,0.6)
+Circle(X,P,0.4)
+Circle(X,P,0.2)
+3->A
+End
+
+If N>=4
+Then
+N-4->J
+If P>=0
+&-J->J
+For(I,0,J)
+
+End
+
+Goto EM

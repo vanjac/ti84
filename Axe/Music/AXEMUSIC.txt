@@ -1,0 +1,62 @@
+AXEMUSIC
+not protected
+
+.MDRAWER
+
+.USES: A,B,I,J,K
+
+
+.&r1:TILESET
+.&r2:MUSIC
+.&r3:YPOS
+.&r4:SPACING
+.&r5:LENGTH
+.&r6:X START
+.&X1T:SELECTED
+Lbl MDRW
+STAFF(&r1,&r2,&r3,&r4)
+
+&r6->X
+For(I,0,&r5-1)
+&r2+(I*2)->J
+{&r1+({J}*2)}&rad->K
+X+(iPart(K*2}-8)->A
+&r3+({J+1}-2*&r4/2)+(iPart(K*2+1}-8)->B
+
+If X>>&-16
+Pt-On(A,B,K+2)
+End
+
+If I=&X1T
+A->&X2T
+B->&Y2T
+End
+
+X+iPart(K*2+2}->X
+
+If X>=>=96
+DispGraph
+Return
+
+.&r3+&r6->&r3
+.0->X
+.STAFF(&r1,&r2,&r3,&r4)
+End
+
+
+End
+
+
+Return
+
+
+
+.&r3:YPOS
+.&r4:SPACING
+Lbl STAFF
+HLine(&r3)
+HLine(&r3+&r4)
+HLine(&r3+&r4+&r4)
+HLine(&r3-&r4)
+HLine(&r3-&r4-&r4)
+Return

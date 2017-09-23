@@ -1,0 +1,38 @@
+AXEITEST
+not protected
+
+.INTERRPT
+
+[0000000000000000]->Pic1
+[FFFFFFFFFFFFFFFF]->Pic2
+
+Lbl START
+0->N
+While getKey
+End
+FnOn 
+fnInt(INT,6)
+Stop
+
+
+
+Lbl INT
+ClrDraw
+If I=0
+1->I
+Pt-On(0,0,Pic1)
+Else
+0->I
+Pt-On(0,0,Pic2)
+End
+
+DispGraph
+
+getKeys
+If getKey
+&statLnReg &rad
+FnOff 
+Return&rad
+End
+
+Return

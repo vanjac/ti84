@@ -1,0 +1,28 @@
+AXETILES
+not protected
+
+.TILELIB
+
+
+.&r1,&r2:X,Y LEN
+.&r3:TILESET
+.&r4:TILEMAP
+Lbl TDRAW
+ClrDraw
+
+If &r1>12
+Return
+End
+
+If &r2>8
+Return
+End
+
+For(Y,0,&r1-1)
+For(X,0,&r2-1)
+Pt-On(X*8,Y*8,{&r3+ ( iPart(&r4*2+(Y*&r1+X)} *2) }&rad)
+End
+End
+
+DispGraph
+Return

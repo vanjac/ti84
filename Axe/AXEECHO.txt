@@ -1,0 +1,11 @@
+AXEECHO
+not protected
+
+.ECHO
+
+ClrHome
+Input ->S
+
+ClrHome
+Disp {S}>DEC
+Pause 6000

@@ -1,0 +1,146 @@
+AXEMNOTE
+not protected
+
+.MUSICALS
+
+
+[01            1700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]->GDB2M
+
+
+Lbl START
+
+.SELECTED
+0->&X1T
+.POS:
+32->&X2T
+32->&Y2T
+
+
+
+.SCROLL
+32->&X6T
+32->&Y6T
+
+
+0->L
+Lbl LOOP
+L+1->L
+ClrDraw
+MDRW(GDB1T,GDB2M+1,&Y6T,4,{GDB2M},&X6T)
+
+If L>=16
+Iref(&X2T-1,&Y2T-1,10,10)
+End
+If L>=32
+0->L
+End
+DispGraph
+
+
+
+getKeys
+If getKey(3)
+&X6T-1->&X6T
+End
+If getKey(2)
+&X6T+1->&X6T
+End
+If getKey(1)
+&Y6T-1->&Y6T
+End
+If getKey(4)
+&Y6T+1->&Y6T
+End
+If getKey(41)
+Return
+End
+
+If getKey(21)
+&X1T+1->&X1T
+WAIT()
+End
+If getKey(29)
+&X1T-1->&X1T
+WAIT()
+End
+
+If getKey(10)
+{GDB2M+2+(2*&X1T)}+1->{GDB2M+2+(2*&X1T)}
+WAIT()
+End
+If getKey(11)
+{GDB2M+2+(2*&X1T)}-1->{GDB2M+2+(2*&X1T)}
+WAIT()
+End
+
+If getKey(12)
+{GDB2M+1+(2*&X1T)}+1->{GDB2M+1+(2*&X1T)}
+WAIT()
+End
+If getKey(13)
+{GDB2M+1+(2*&X1T)}-1->{GDB2M+1+(2*&X1T)}
+WAIT()
+End
+
+If getKey(9)
+{GDB2M}->&X1T
+&E17->{GDB2M+1+(2*&X1T)}
+&E00->{GDB2M+2+(2*&X1T)}
+{GDB2M}+1->{GDB2M}
+WAIT()
+End
+If getKey(56)
+If {GDB2M}>1
+{GDB2M}-1->{GDB2M}
+{GDB2M}-1->&X1T
+WAIT()
+End
+End
+If getKey(15)
+1->{GDB2M}
+0->&X1T
+WAIT()
+End
+
+
+If getKey(33)
+SETNOTE(&E0)
+End
+If getKey(34)
+SETNOTE(&E6)
+End
+If getKey(26)
+SETNOTE(&E10)
+End
+If getKey(18)
+SETNOTE(&E17)
+End
+If getKey(35)
+SETNOTE(&E1F)
+End
+If getKey(27)
+SETNOTE(&E24)
+End
+
+
+
+Pause 16
+Goto LOOP
+
+Return
+
+
+Lbl WAIT
+While getKey(0)
+End
+Return
+
+.&r1:VALUE
+Lbl SETNOTE
+&r1->{GDB2M+1+(2*&X1T)}
+Return
+
+
+
+prgmAXEMCOMP
+prgmAXEMUSIC

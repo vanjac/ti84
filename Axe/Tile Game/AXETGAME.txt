@@ -1,0 +1,53 @@
+AXETGAME
+not protected
+
+.TILEGAME
+
+.TILESET
+[0000000000000000]->Pic1WHT
+[FFFFFFFFFFFFFFFF]->Pic1BLK
+[1C1C1C081C081414]->Pic1PRSN
+[55AA55AA55AA55AA]->Pic1END
+
+&deltaList(Pic1WHT&rad,Pic1PRSN&rad,Pic1BLK&rad,Pic1END&rad)->GDB1TILE
+
+
+
+.MAP
+.HEX VALS:
+.X,Y LENGTH
+.X,Y P.START
+
+[6511 222222 210022 200022 230022 222222]->Pic20
+
+&deltaList(Pic20&rad)->GDB2MAP
+
+
+
+Lbl START
+.LEVEL
+0->L
+
+MDATA({GDB2MAP+L}&rad)
+TDRAW(&X1T,&Y1T,GDB1TILE,&X6T)
+Pause 8000
+Return
+
+
+
+.&r1:MAP
+.RET
+.&X1T,&Y1T:LEN
+.&X2T,&Y2T:START
+.&X6T:MAP
+Lbl MDATA
+iPart(&r1*2}->&X1T
+iPart(&r1*2+1}->&Y1T
+iPart(&r1*2+2}->&X2T
+iPart(&r1*2+3}->&Y2T
+&r1+2->&X6T
+Return
+
+
+
+prgmAXETILES
