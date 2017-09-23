@@ -1,0 +1,16 @@
+ROTATEPT
+not protected
+
+"IN:"
+"J,K:POINT"
+"&theta:ROTATION"
+"OUT:"
+"J,K:POINT"
+"USED:"
+"R,&theta"
+
+&arctan(K/J)-&theta->&theta
+&squareroot(J&^2+K&^2)->R
+
+cos(&theta)*R->J
+sin(&theta)*R->K

@@ -1,0 +1,6 @@
+TRISSA
+not protected
+
+&arcsin(B*sin(D)/A)->E
+180-D-E->F
+A*sin(F)/sin(D)->C

@@ -1,0 +1,5 @@
+TRISSS
+not protected
+
+&arccos((A&^2+B&^2-C&^2)/(2*A*B))->F
+prgmTRISAS

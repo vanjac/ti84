@@ -1,0 +1,70 @@
+BOUNCE
+not protected
+
+"POS."
+rand*32-16->X
+rand*16->Y
+
+"OLD POS."
+X->V
+Y->W
+
+"VEL."
+rand*2-0.5->A
+rand*2->B
+
+"FORCES"
+0->C
+&-.125->D
+
+"BONCE AMOUNT"
+.8->K
+
+"RESISTANCE"
+1/128->R
+
+
+0->I
+
+
+ClrDraw
+Lbl LP
+If I=32
+Then
+ClrDraw
+0->I
+End
+I+1->I
+
+Line(V,W,X,Y)
+
+
+X->V
+Y->W
+
+X+A->X
+Y+B->Y
+
+A+C->A
+B+D->B
+
+A*(1-R)->A
+B*(1-R)->B
+
+If getKey
+Stop
+
+
+Lbl CN
+If X>16 or X<&-16
+Then
+&-A*K->A
+V->X
+End
+If Y>16 or Y<&-16
+Then
+&-B*K->B
+W->Y
+End
+
+Goto LP

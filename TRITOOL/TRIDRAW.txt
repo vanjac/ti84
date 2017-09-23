@@ -1,0 +1,48 @@
+TRIDRAW
+not protected
+
+"USED: L, M"
+
+&statClrList &L1
+&statClrList &L2
+
+If A>B
+Then
+If C>A
+Then
+C->L
+Else
+A->L
+End
+Else
+If C>B
+Then
+C->L
+Else
+B->L
+End
+End
+
+16/L->M
+
+
+3->&L1(1)
+45->&L2(1)
+
+1->&L1(2)
+3->&L1(3)
+1->&L1(4)
+3->&L1(5)
+1->&L1(6)
+3->&L1(7)
+99->&L1(8)
+
+A*M->&L2(2)
+180-F->&L2(3)
+B*M->&L2(4)
+180-D->&L2(5)
+C*M->&L2(6)
+180-E->&L2(7)
+0->&L2(8)
+
+prgmLOGO

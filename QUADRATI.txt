@@ -1,0 +1,14 @@
+QUADRATI
+not protected
+
+"IN:A,B,C"
+"OUT:X,Y"
+"USED:Z"
+
+B&^2-4*A*C->Z
+If Z>=0
+Then
+&squareroot(Z)->Z
+(&-B+Z)/2*A->X
+(&-B-Z)/2*A->Y
+End

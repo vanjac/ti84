@@ -1,0 +1,6 @@
+TRIAREA
+not protected
+
+"OUT: X"
+
+sin(E)*A*C/2->X

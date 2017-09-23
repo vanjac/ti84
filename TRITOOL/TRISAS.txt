@@ -1,0 +1,7 @@
+TRISAS
+not protected
+
+&squareroot(A&^2+B&^2-2*A*B*cos(F))->C
+
+&arcsin(A*sin(F)/C)->D
+180-D-F->E

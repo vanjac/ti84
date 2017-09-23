@@ -1,0 +1,7 @@
+TRIASA
+not protected
+
+180-E-F->D
+
+sin(E)*A/sin(D)->B
+sin(F)*A/sin(D)->C

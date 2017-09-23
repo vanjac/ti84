@@ -1,0 +1,54 @@
+INTERSCT
+not protected
+
+"IN:"
+"A,B,X,Y:LINE 1"
+"&L1,&L2,&L3,&L4"
+"I:INDEX OF LINE 2"
+
+"M1"
+(B-Y)/(A-X)->M
+
+"M2"
+(&L2(I)-&L4(I))/(&L1(I)-&L3(I))->N
+
+
+"INTERSECT?"
+0->J
+If M=N
+Return
+
+
+"INTERSECT X"
+(M*X-N*&L3(I)-Y*&L4(I))/(M-N)->E
+"INTERSECT Y"
+M*E-M*X+Y->F
+
+
+"INTERSECT?"
+If E>=X and E<=A
+J+1->J
+If E<=X and E>=A
+J+1->J
+If F>=Y and F<=B
+J+1->J
+If F<=Y and F>=B
+J+1->J
+
+If E>=&L3(I) and E<=&L1(I)
+J+1->J
+If E<=&L3(I) and E>=&L1(I)
+J+1->J
+If F>=&L4(I) and F<=&L2(I)
+J+1->J
+If F<=&L4(I) and F>=&L2(I)
+J+1->J
+
+
+If J>=4
+Then
+1->J
+Else
+0->J
+End
+Return

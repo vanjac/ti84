@@ -1,0 +1,111 @@
+TRITOOL
+not protected
+
+"ALL TRI FUNCS:"
+"ABC:SIDES"
+"DEF:ANGLES"
+
+
+Lbl GO
+ClrHome
+Disp "SIDES:A,B,C"
+Disp "ANGLES:D,E,F"
+Disp "(OPPOSITE SIDES)"
+
+
+Menu("  CHOOSE MODE:  ","SSS",M1,"SSA",M2,"SAS",M3,"SAA",M4,"ASA",M5,"QUIT",ST)
+
+
+
+Lbl M1
+Prompt A
+Prompt B
+Prompt C
+prgmTRISSS
+Disp "D:",D
+Disp "E:",E
+Disp "F:",F
+Goto EN
+
+
+Lbl M2
+Prompt A
+Prompt B
+Prompt D
+prgmTRISSA
+Disp "C:",C
+Disp "E:",E
+Disp "F:",F
+Goto EN
+
+
+Lbl M3
+Prompt A
+Prompt B
+Prompt F
+prgmTRISAS
+Disp "C:",C
+Disp "D:",D
+Disp "E:",E
+Goto EN
+
+
+Lbl M4
+Prompt A
+Prompt D
+Prompt E
+prgmTRISAA
+Disp "B:",B
+Disp "C:",C
+Disp "F:",F
+Goto EN
+
+
+Lbl M5
+Prompt A
+Prompt E
+Prompt F
+prgmTRIASA
+Disp "B:",B
+Disp "C:",C
+Disp "D:",D
+Goto EN
+
+
+
+Lbl EN
+Disp "PRESS ENTER..."
+Pause 
+prgmTRIAREA
+Disp "AREA:",X
+
+If D=E and E=F
+Then
+Disp "EQUILATERAL"
+Else
+If D=E or E=F or D=F
+Disp "ISOSCELES"
+End
+If D=90 or E=90 or F=90
+Then
+Disp "RIGHT"
+Else
+If D>90 or E>90 or F>90
+Then
+Disp "OBTUSE"
+Else
+Disp "ACUTE"
+End
+End
+
+
+Disp "PRESS ENTER..."
+Pause 
+
+prgmTRIDRAW
+Text(0,0,"PRESS ENTER")
+Pause 
+
+Menu("     AGAIN?     ","NO",ST,"YES",GO)
+
+Lbl ST

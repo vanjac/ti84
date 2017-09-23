@@ -1,0 +1,34 @@
+QUADUI
+not protected
+
+ClrHome
+Disp "QUADRATIC"
+Disp "AX&^2+BX+C"
+Prompt A
+Prompt B
+Prompt C
+prgmQUADRATI
+
+
+If Z>0
+Then
+Disp "2 SOLUTIONS"
+Disp X
+Disp Y
+End
+
+
+If Z=0
+Then
+Disp "1 SOLUTION"
+Disp X
+End
+
+
+If Z<0
+Then
+Disp "NO SOLUTIONS"
+End
+
+Disp "PRESS ENTER"
+Pause 

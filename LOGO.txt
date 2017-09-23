@@ -1,0 +1,114 @@
+LOGO
+not protected
+
+Lbl GO
+ClrDraw
+&statClrList &L3
+&statClrList &L4
+0->I
+0->X
+0->Y
+0->&theta
+1->P
+
+Lbl LP
+I+1->I
+&L1(I)->J
+&L2(I)->K
+
+If J=1
+Goto 1
+If J=2
+Goto 2
+If J=3
+Goto 3
+If J=4
+Goto 4
+If J=5
+Goto 5
+If J=6
+Goto 6
+If J=7
+Goto 7
+If J=8
+Goto 8
+If J=99
+Goto 99
+Goto LP
+
+
+Lbl DR
+If P=1
+Line(X,Y,A,B)
+A->X
+B->Y
+Goto LP
+
+
+
+Lbl 1
+X+K*sin(&theta)->A
+Y+K*cos(&theta)->B
+Goto DR
+
+
+Lbl 2
+X-K*sin(&theta)->A
+Y-K*cos(&theta)->B
+Goto DR
+
+
+Lbl 3
+&theta+K->&theta
+Goto LP
+
+
+Lbl 4
+&theta-K->&theta
+Goto LP
+
+
+Lbl 5
+1->P
+Pt-On(X,Y)
+Goto LP
+
+
+Lbl 6
+0->P
+Goto LP
+
+
+Lbl 7
+I->&L3(1+dim(&L3))
+K->&L4(1+dim(&L4))
+Goto LP
+
+
+Lbl 8
+&L4(dim(&L4))-1->&L4(dim(&L4))
+If &L4(dim(&L4))=0
+Then
+
+If dim(&L3)=1
+Then
+&statClrList &L3
+Else
+seq(&L3(N),N,1,dim(&L3)-1,1)->&L3
+End
+
+If dim(&L4)=1
+Then
+&statClrList &L4
+Else
+seq(&L4(N),N,1,dim(&L4)-1,1)->&L4
+End
+
+Else
+&L3(dim(&L3))->I
+End
+Goto LP
+
+
+Lbl 99
+Return
