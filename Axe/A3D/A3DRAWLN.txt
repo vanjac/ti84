@@ -1,0 +1,77 @@
+A3DRAWLN
+not protected
+
+.LINE3D
+
+det(16)->GDB21
+det(16)->GDB22
+
+&deltaList(0.0&rad,0.0&rad,0.0&rad)->GDB3CPOS
+
+&deltaList(          10.0&rad,10.0&rad10.0&rad, 10.0&rad,30.0&rad,10.0&rad,            &-10.0&rad,10.0&rad,10.0&rad, &-10.0&rad,30.0&rad,10.0&rad,         10.0&rad,10.0&rad,&-10.0&rad, 10.0&rad,30.0&rad,&-10.0&rad,         &-10.0&rad,10.0&rad,&-10.0&rad, &-10.0&rad,30.0&rad,&-10.0&rad,       10.0&rad,10.0&rad,10.0&rad, 10.0&rad,10.0&rad,&-10.0&rad,          10.0&rad,10.0&rad,&-10.0&rad, &-10.0&rad,10.0&rad,&-10.0&rad,        &-10.0&rad,10.0&rad,&-10.0&rad, &-10.0&rad,10.0&rad,10.0&rad,        &-10.0&rad,10.0&rad,10.0&rad, 10.0&rad,10.0&rad,10.0&rad           10.0&rad,30.0&rad,10.0&rad, 10.0&rad,30.0&rad,&-10.0&rad,          10.0&rad,30.0&rad,&-10.0&rad, &-10.0&rad,30.0&rad,&-10.0&rad         &-10.0&rad,30.0&rad,&-10.0&rad, &-10.0&rad,30.0&rad,10.0&rad         &-10.0&rad,30.0&rad,10.0&rad, 10.0&rad,30.0&rad,10.0&rad)->GDB13D
+
+
+.For(Y,0,100)
+
+ClrDraw
+For(I,0,11)
+conj(I*12+GDB13D,GDB21,6)
+conj(I*12+GDB13D+6,GDB22,6)
+sub(MOVE3D&rad,GDB21,GDB3CPOS)
+sub(MOVE3D&rad,GDB22,GDB3CPOS)
+sub(LINE3D&rad,GDB21,GDB22,32.0,48,32)
+End
+DispGraph
+
+.{GDB3CPOS+2}&rad-0.2->{GDB3CPOS+2}&rad
+.Pause 100
+.End
+Pause 6000
+Return
+
+
+.&r1:PT 1 PTR
+.&r2:PT 2 PTR
+.&r3:SCRN SIZE*PROJ. PLANE DIST.
+.&r4:X OFFSET
+.&r5:Y OFFSET
+Lbl LINE3D
+If {&r1+2}&rad<<0.0?{&r2+2}&rad<<0.0
+Return
+End
+
+sub(PROJ3D&rad,&r1,&r3)
+sub(PROJ3D&rad,&r2,&r3)
+
+sub(LINE&rad,({&r1}&rad//(1.0)+&r4)^128,({&r1+4}&rad//(1.0)+&r5)^64,({&r2}&rad//(1.0)+&r4)^128,({&r2+4}&rad//(1.0)+&r5)^64)
+Return
+
+.&r1:POINT
+.&r2:PROJ
+Lbl PROJ3D
+{&r1}&rad**&r2->{&r1}&rad
+{&r1+4}&rad**&r2->{&r1+4}&rad
+
+If {&r1+2}&rad!=0.0
+{&r1}&rad/*{&r1+2}&rad->{&r1}&rad
+{&r1+4}&rad/*{&r1+2}&rad->{&r1+4}&rad
+
+If {&r1+2}&rad<<0.0
+&-{&r1}&rad->{&r1}&rad
+&-{&r1+4}&rad->{&r1+4}&rad
+End
+End
+Return
+
+
+.&r1:POINT
+.&r2:TRANSLATE VECTOR
+.&r3:ROTATE VECTOR
+Lbl MOVE3D
+.TRANSLATE
+{&r1}&rad+{&r2}&rad->{&r1}&rad
+{&r1+2}&rad+{&r2+2}&rad->{&r1+2}&rad
+{&r1+4}&rad+{&r2+4}&rad->{&r1+4}&rad
+Return
+
+prgmOFFSCRN

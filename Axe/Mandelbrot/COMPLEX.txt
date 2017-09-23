@@ -1,0 +1,28 @@
+COMPLEX
+not protected
+
+.CCALC
+
+.&r1:a
+.&r2:bi
+.&r3:c
+.&r4:di
+.&r5:RES a PTR
+.&r6:RES b PTR
+Lbl CSUM
+&r1+&r3->{&r5}&rad
+&r2+&r4->{&r6}&rad
+Return
+
+
+.SAME
+Lbl CPROD
+(&r1**&r3)-(&r2**&r4)->{&r5}&rad
+(&r1**&r4)+(&r2**&r3)->{&r6}&rad
+Return
+
+.&r1:X
+.&r2:Y
+.&r3:RES DIST PTR
+Lbl CDIST0
+&squareroot((&r1&^2&rad)+(&r2&^2&rad))&rad->{&r3}&rad

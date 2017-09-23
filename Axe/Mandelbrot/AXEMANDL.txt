@@ -1,0 +1,74 @@
+AXEMANDL
+not protected
+
+.MANDLEB
+
+ExprOn
+
+ClrDraw
+MANDL(&-2.0,2.0,&-2.0,2.0,2)
+DispGraph
+Pause 10000
+Return
+
+.&r1:X START
+.&r2:X END
+.&r3:Y START
+.&r4:Y END
+.&r5:ITERATIONS
+Lbl MANDL
+Full
+
+.C
+&r1->A
+&r2->B
+
+.Z
+0.0->C
+0.0->D
+
+
+For(Y,0,63)
+For(X,0,95)
+A+((&r3-&r1)/*96.0)->A
+B+((&r4-&r2)/*64.0)->B
+
+sub(MANDTEST&rad,A,B,&r5)
+
+If J=1
+Pxl-On(X,Y)
+Else
+Pxl-Off(X,Y)
+End
+
+End
+End
+
+Return
+
+
+.&r1:A
+.&r2:Bi
+.&r3:ITERATIONS
+Lbl MANDTEST
+.Z
+0.0->C
+0.0->D
+
+.RESULT
+.0=WHITE
+.1=BLACK
+1->J
+
+For(I,1,&r3)
+CPROD(C,D,C,D,&degC,&degD)
+CSUM(C,D,&r1,&r2,&degC,&degD)
+CDIST0(C,D,&degK)
+If K>>2.0
+0->J
+End
+EndIf J=0
+Return
+
+
+prgmCOMPLEX

@@ -1,0 +1,28 @@
+CMDLIB
+not protected
+
+.CMD
+
+Lbl CMD
+0->X
+ClrHome
+CMDWRT("CMDLIB 1.0")
+Return
+
+
+.&r1:TEXT
+Lbl CMDWRT
+Disp &r1
+Disp &i
+CMDRD(Input )
+Return
+
+
+.&r1:IN
+Lbl CMDRD
+X+1->X
+If X>=10
+Return&rad
+End
+CMDWRT(&r1)
+Return

@@ -1,0 +1,36 @@
+BASMANDL
+not protected
+
+Lbl GO
+16->J
+
+ClrDraw
+
+0->Y
+While Y<Ymax
+
+Xmin->X
+While X<Xmax
+X+Y&i->C
+
+Pt-On(X,Y)
+Pt-On(X,&-Y)
+0->Z
+0->I
+While I<J
+Z&^2+C->Z
+If real(Z)&^2+imag(Z)&^2>4
+Then
+Pt-Off(X,Y)
+Pt-Off(X,&-Y)
+J->I
+End
+
+I+1->I
+End
+
+X+Xscl->X
+End
+
+Y+Yscl->Y
+End

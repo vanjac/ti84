@@ -1,0 +1,35 @@
+ROTATE3D
+not protected
+
+.ROTATE
+
+0->I
+For(256)
+20.0->X
+20.0->Y
+ROTATE(&degX,&degY,I)
+Circle(X//(1.0)+48,Y//(1.0)+32,5)
+DispGraphClrDraw
+I+1->I
+Pause 50
+End
+Return
+
+
+det(2)->&degSIN
+det(2)->&degCOS
+det(2)->&degROTX
+det(2)->&degROTY
+
+.&r1X PTR(FLT)
+.&r2Y PTR
+.&r3&theta(INT,0-256)
+Lbl ROTATE
+{&r1}&rad->ROTX
+{&r2}&rad->ROTY
+sin(&r3)*(1.0)/*(127.0)->SIN
+cos(&r3)*(1.0)/*(127.0)->COS
+
+ROTX**COS-(ROTY**SIN)->{&r1}&rad
+ROTX**SIN+(ROTY**COS)->{&r2}&rad
+Return

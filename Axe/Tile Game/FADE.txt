@@ -1,0 +1,34 @@
+FADE
+not protected
+
+.FADE2BLK
+
+&deltaList(0)->GDB0FDE
+
+
+Lbl FADE
+Shade()->{GDB0FDE}
+For(I,Shade(),63)
+Shade(I)
+Pause 100
+End
+Return
+
+Lbl UNFADE
+!If {GDB0FDE}=0
+Shade({GDB0FDE})
+0->{GDB0FDE}
+End
+Return
+
+Lbl FCLOSE
+0->I
+While I<32
+I+2->I
+ref(0,0,96,I)
+ref(0,63-I,96,I)
+ref(0,0,I,64)
+ref(95-I,0,I,64)
+DispGraph
+End
+Return

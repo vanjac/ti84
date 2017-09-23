@@ -1,0 +1,91 @@
+OFFSCRN
+not protected
+
+.LINELIB
+
+...
+&-32->X
+For(I,0,192)
+ClrDraw
+Circle(48,32,4)
+Circle(X,X,4)
+LINE(48,32,X,X)
+DispGraph
+Pause 45
+X+1->X
+End
+...
+
+...
+ClrDraw
+LINE(10,10,30,10)
+LINE(10,10,10,30)
+DispGraph
+Pause 6000
+Return
+...
+
+det(2)->&degLNM
+det(2)->&degLNB
+det(2)->&degXA
+det(2)->&degYA
+det(2)->&degXB
+det(2)->&degYB
+
+
+.&r1:X1-SIGNED INT
+.&r2:Y1
+.&r3:X2
+.&r4:Y2
+Lbl LINE
+.FLOAT
+...
+Disp &r1>DEC
+Disp &r2>DEC
+Disp &i
+Disp &r3>DEC
+Disp &r4>DEC
+Disp &i
+...
+
+&r1*(1.0)->XA
+&r2*(1.0)->YA
+&r3*(1.0)->XB
+&r4*(1.0)->YB
+
+YA-YB/*(XA-XB)->LNM
+&-LNM**XA+YA->LNB
+
+
+sub(FIXPT&rad,&degXA,&degYA,LNM,LNB)
+sub(FIXPT&rad,&degXB,&degYB,LNM,LNB)
+
+.Line(XA//(1.0),(LNM**XA+LNB)//(1.0),XB//(1.0),(LNM**XB+LNB)//(1.0))
+Line(XA//(1.0),YA//(1.0),XB//(1.0),YB//(1.0))
+Return
+
+
+
+.&r1:X PTR
+.&r2:Y PTR
+.&r3:SLOPE
+.&r4:Y INT
+Lbl FIXPT
+.X
+If {&r1}&rad<<(0.0)
+0.0->{&r1}&rad
+&r4->{&r2}&rad
+ElseIf {&r1}&rad>>(95.0)
+95.0->{&r1}&rad
+95.0**&r3+&r4->{&r2}&rad
+End
+
+.Y
+If {&r2}&rad<<(0.0)
+0.0->{&r2}&rad
+&-&r4/*&r3->{&r1}&rad
+ElseIf {&r2}&rad>>(63.0)
+63.0->{&r2}&rad
+(63.0-&r4)/*&r3->{&r1}&rad
+End
+Return

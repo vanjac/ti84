@@ -8,19 +8,27 @@ not protected
 [FFFFFFFFFFFFFFFF]->Pic1BLK
 [1C1C1C081C081414]->Pic1PRSN
 [55AA55AA55AA55AA]->Pic1END
+[8142241818244281]->Pic1SPK
+[5A8001818001816C]->Pic1FALL
+[0000E0BFBFE50000]->Pic1KEY
+[7F555D55555D557F]->Pic1GATE
 
-&deltaList(Pic1WHT&rad,Pic1PRSN&rad,Pic1BLK&rad,Pic1END&rad)->GDB1TILE
+
+&deltaList(Pic1WHT&rad,Pic1PRSN&rad,Pic1BLK&rad,Pic1END&rad,Pic1SPK&rad,Pic1FALL&rad,Pic1KEY&rad,Pic1GATE&rad)->GDB1TILE
 
 
 
 .MAP
 .HEX VALS:
+.LENGTH
 .X,Y LENGTH
 .X,Y P.START
+&deltaList(64,8,8,17, 0,2,2,2,2,2,2,0, 2,0,2,0,0,0,0,2, 2,0,2,0,2,2,0,2, 2,0,0,0,2,0,0,2, 2,2,2,2,2,0,2,2, 2,3,0,2,0,0,0,2, 2,0,0,0,0,2,0,2, 0,2,2,2,2,2,2,0 )->Pic200
 
-[6511 222222 210022 200022 230022 222222]->Pic20
+&deltaList(64,8,8,17, 0,2,2,2,2,2,2,0, 2,0,0,0,4,0,3,2, 2,0,0,0,4,0,0,2, 2,0,0,0,4,0,0,2, 2,0,0,0,4,0,0,2, 2,0,0,0,5,0,0,2, 2,0,0,0,4,0,0,2, 0,2,2,2,2,2,2,0 )->Pic201
 
-&deltaList(Pic20&rad)->GDB2MAP
+
+&deltaList(Pic200&rad,Pic201&rad,Pic202&rad,0&rad)->GDB2MAP
 
 
 
@@ -28,26 +36,171 @@ Lbl START
 .LEVEL
 0->L
 
-MDATA({GDB2MAP+L}&rad)
-TDRAW(&X1T,&Y1T,GDB1TILE,&X6T)
-Pause 8000
+.TIME
+87->T
+
+ref(0,0,96,64)
+DispGraph
+Fix1
+Text(12,28)
+DrawF "3..."
+Pause 1800
+DrawF "2..."
+Pause 1800
+DrawF "1..."
+Pause 1800
+Fix0
+
+
+MDATA(L)
+
+Lbl LOOP
+TDRAW(&X1T,&Y1T,GDB1TILE,&X6T,&-8*&X2T+44,&-8*&Y2T+28)
+Pt-On(44,28,Pic1PRSN)
+UNFADE()
+DispGraph
+
+Text(0,0)
+Fix0
+DrawF T>DEC
+Text(0,58)
+DrawF &X3T>DEC
+
+
+
+
+
+getKeys
+
+If getKey(41)
+Return
+End
+
+If getKey(3)
+WALK(&X2T+1,&Y2T)
+End
+If getKey(2)
+WALK(&X2T-1,&Y2T)
+End
+If getKey(1)
+WALK(&X2T,&Y2T+1)
+End
+If getKey(4)
+WALK(&X2T,&Y2T-1)
+End
+
+
+Pause 250
+If T=0
+UNFADE()
+Text(24,16)
+Fix1
+DrawF "Game Over."
+Fix0
+Pause 6000
+Return
+End
+
+T--
+Goto LOOP
+
 Return
 
 
 
-.&r1:MAP
+.&r1:LEVEL
 .RET
 .&X1T,&Y1T:LEN
 .&X2T,&Y2T:START
+.&X3T:KEYS
 .&X6T:MAP
+.&Y6T:ORIGINAL
 Lbl MDATA
-iPart(&r1*2}->&X1T
-iPart(&r1*2+1}->&Y1T
-iPart(&r1*2+2}->&X2T
-iPart(&r1*2+3}->&Y2T
-&r1+2->&X6T
+{&r1*2+GDB2MAP}&rad->&r1
+If &r1=0
+UNFADE()
+Text(24,16)
+Fix1
+DrawF "YOU'RE"
+Text(24,24)
+DrawF "WINNER!"
+Fix0
+Pause 6000
+Return&rad
+End
+
+{&r1+1}->&X1T
+{&r1+2}->&Y1T
+iPart(&r1*2+6}->&X2T
+iPart(&r1*2+7}->&Y2T
+0->&X3T
+&r1+4->&Y6T
+conj(&Y6T,&L1,{&r1})
+&L1->&X6T
+sub(WALK&rad,&X2T,&Y2T)
 Return
 
 
+.&r1:XPOS
+.&r2:YPOS
+Lbl WALK
+
+
+.PREVIOUS
+&X1T*&Y2T+&X2T->&r5
+.NEXT
+&X1T*&r2+&r1->&r6
+.&X6T:CURRENT MAP
+.&Y6T:ORIGINAL
+
+
+If ({&X6T+&r6}=0)??({&X6T+&r6}=5)
+
+If ({&Y6T+&r5}=6)??({&Y6T+&r5}=7)
+.0->{&X6T+&r5}
+Else
+{&Y6T+&r5}->{&X6T+&r5}
+End
+
+.1->{&X6T+&r6}
+&r1->&X2T
+&r2->&Y2T
+End
+
+.FALL TILE
+If {&Y6T+&r5}=5
+4->{&X6T+&r5}
+End
+
+.KEY
+If {&X6T+&r6}=6
+0->{&X6T+&r6}
+&X3T++
+sub(WALK&rad,&r1,&r2)
+End
+
+.GATE
+If ({&X6T+&r6}=7)?(&X3T>0)
+0->{&X6T+&r6}
+&X3T--
+sub(WALK&rad,&r1,&r2)
+End
+
+.NEXT LEVEL
+If {&X6T+&r6}=3
+L+1->L
+sub(MDATA&rad,L)
+FCLOSE()
+End
+
+.SPIKE
+If {&X6T+&r6}=4
+FADE()
+sub(MDATA&rad,L)
+End
+
+Return
 
 prgmAXETILES
+prgmFADE
+prgmTGAMEMAP

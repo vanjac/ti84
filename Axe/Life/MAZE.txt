@@ -1,0 +1,73 @@
+MAZE
+not protected
+
+.MAZEDRAW
+
+.CURRENT:X,Y
+.NEXT:A,B
+
+Lbl NOISE
+ClrDraw
+HLine(0)
+VLine(0)
+HLine(62)
+VLine(94)
+
+While 1
+rand^48->X
+rand^32->Y
+If pxl-Test(X*2,Y*2)
+sub(MAZELN&rad)
+End
+
+getKeys
+If getKey(9)
+Pxl-Off(1,0)
+Pxl-Off(93,62)
+Return
+End
+
+End
+Pause 6000
+Return
+
+
+Lbl MAZELN
+While 1
+If getKey(41)
+Return&rad
+End
+
+X->A
+Y->B
+
+.DIRECTION
+rand^4->D
+
+If D=0
+X++
+ElseIf D=1
+X--
+ElseIf D=2
+Y++
+Else
+Y--
+End
+
+If pxl-Test(X*2,Y*2)
+Return
+End
+If X<<0
+Return
+ElseIf X>>95
+Return
+End
+If Y<<0
+Return
+ElseIf Y>>63
+Return
+End
+
+Line(A*2,B*2,X*2,Y*2)
+DispGraph
+End

@@ -1,0 +1,137 @@
+MAZE3D
+not protected
+
+.MAZELIB
+
+0->I
+While 1
+getKeys
+If getKey(41)
+Return
+End
+If getKey(3)
+I++
+End
+If getKey(2)
+I--
+End
+
+ClrDraw
+MZCLR()
+16.0->A
+32.0->B
+&-16.0->C
+32.0->D
+ROTATE(&degA,&degB,I)
+ROTATE(&degC,&degD,I)
+MZWALL(A//(1.0),B//(1.0),C//(1.0),D//(1.0),16,32)
+MZDRAW()
+DispGraph
+Pause 50
+End
+Pause 6000
+Return
+
+
+
+.&L5:HEIGHTS
+det(2)->&degMZX
+
+det(2)->&degXA
+det(2)->&degXB
+det(2)->&degYA
+det(2)->&degYB
+det(2)->&degZA
+det(2)->&degZB
+det(2)->&degZZ
+
+
+
+.&r1X1
+.&r2X2
+.&r3Y1(FLOAT)
+.&r4Y2(FLOAT)
+Lbl MZFILL
+If &r2<<&r1
+&statSelect(&r1,(&r2->&r1))->&r2
+&statSelect(&r3,(&r4->&r3))->&r4
+End
+
+
+&r4-&r3/*(&r2-&r1*(1.0))->S
+&r3->MZX
+
+While &r1<<&r2
+If abs(MZX/(1.0))>={&L5+&r1}?(&r1>=0)?(&r1<=95)
+abs(MZX/(1.0))->{&L5+&r1}
+End
+
+&r1++
+MZX+S->MZX
+End
+Return
+
+
+Lbl MZCLR
+Fill(&L5,96,0)
+Return
+
+
+Lbl MZDRAW
+For(X,32,64)
+{&L5+X}->Y
+VLine(X,32-Y,32+Y)
+End
+
+Return
+
+
+.&r1X PTR(INT)
+.&r2Y PTR
+.&r3Z PTR
+.&r4PROJ(INT)
+Lbl MZPROJ
+{&r1}&rad*&r4->{&r1}&rad
+{&r3}&rad*&r4->{&r3}&rad
+
+If {&r2}&rad!=0
+{&r1}&rad//({&r2}&rad)->{&r1}&rad
+{&r3}&rad//({&r2}&rad)->{&r3}&rad
+End
+
+If {&r2}&rad<<0
+&-{&r1}&rad->{&r1}&rad
+&-{&r3}&rad->{&r3}&rad
+End
+Return
+
+.&r1X1(INT)
+.&r2Y1(...)
+.&r3X2
+.&r4Y2
+.&r5HEIGHT(INT)
+.&r6PROJ(INT)
+Lbl MZWALL
+If &r2<<0?(&r4<<0)
+Return
+End
+&r1->XA
+&r2->YA
+&r3->XB
+&r4->YB
+
+&r5->ZZ
+sub(MZPROJ&rad,&degXA,&degYA,&degZZ,&r6)
+ZZ->ZA
+
+&r5->ZZ
+sub(MZPROJ&rad,&degXB,&degYB,&degZZ,&r6)
+ZZ->ZB
+
+sub(MZFILL&rad,XA+48,XB+48,ZA*(1.0),ZB*(1.0))
+
+Return
+
+
+
+prgmROTATE3D

@@ -1,0 +1,82 @@
+DRAW
+not protected
+
+.DRAWER
+
+[0008080877080808]->Pic1C
+
+Lbl DRAWER
+ClrDraw&rad
+48->X
+32->Y
+
+.MODE
+.0:POINT
+.1:LINE
+0->M
+
+.OTHER POINT
+10->U
+10->V
+
+Lbl DLOOP
+ClrDraw
+conj(&L3)
+Pt-Change(X-4,Y-4,Pic1C)
+
+If M=1
+ILine(U,V,X,Y)
+End
+
+DispGraph
+
+getKeys
+If getKey(9)
+conj(&L3)
+DispGraph
+Return
+End
+
+If getKey(3)
+X+1->X
+End
+If getKey(2)
+X-1->X
+End
+If getKey(1)
+Y+1->Y
+End
+If getKey(4)
+Y-1->Y
+End
+
+If getKey(53)
+0->M
+End
+If getKey(52)
+1->M
+X->U
+Y->V
+End
+
+If getKey(54)
+If M=0
+Pxl-On(X,Y)&rad
+End
+If M=1
+Line(U,V,X,Y)&rad
+End
+End
+
+If getKey(48)
+If M=0
+Pxl-Off(X,Y)&rad
+End
+If M=1
+WLine(U,V,X,Y)&rad
+End
+End
+
+Pause 300
+Goto DLOOP
+Return
