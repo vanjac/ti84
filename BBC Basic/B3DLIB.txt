@@ -1,0 +1,28 @@
+DIM mtxMv(3,3)
+DIM mtxProj(3,3)
+DIM t(3,3)
+DIM point(3,3)
+:
+MAT mtxMv() = IDN
+MAT mtxProj() = IDN
+PROC_perspective(90,1.5,0.5,10)
+MAT mtxProj() = mtxProj() * t()
+END
+:
+DEF PROC_transformPt
+MAT point() = mtxMv()*point()
+MAT point() = mtxProj()*point()
+ENDPROC
+:
+DEF PROC_fillT(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
+t(0,0)=a:t(0,1)=b:t(0,2)=c:t(0,3)=d
+t(1,0)=e:t(1,1)=f:t(1,2)=g:t(1,3)=h
+t(2,0)=i:t(2,1)=j:t(2,2)=k:t(2,3)=l
+t(3,0)=m:t(3,1)=n:t(3,2)=o:t(3,3)=p
+ENDPROC
+:
+DEF PROC_perspective(fovy,aspect,n,f)
+LOCAL g
+g = 1/TAN(fovy/2)
+PROC_fillT(g/aspect,0,0,0,0,g,0,0,0,0,(f+n)/(n-f),(2*f*n)/(n-f),0,0,-1,0)
+ENDPROC
